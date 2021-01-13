@@ -1,0 +1,59 @@
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[cc]{titlepic}
+
+\usepackage{graphicx}
+\graphicspath{./assets/images/}
+\usepackage[parfill]{parskip}  % To begin paragraphs with an empty line rather than an indent
+\usepackage{tikz}
+\usetikzlibrary{calc}
+%
+% Bibliography
+\usepackage{cite}
+
+\newcommand{\genlab}[2]{\label{#1:#2}}
+\newcommand{\figlab}[1]{\genlab{fig}{#1}}
+
+\newcommand{\importimage}[2]{
+\begin{figure}[htb]
+\centering
+    \includegraphics[width=0.45\textwidth]{./assets/images/#1}
+\caption{#2}
+\figlab{#1}
+\end{figure}
+}
+\newcommand{\importtikzfigure}[2]{
+  \begin{figure}[htb]
+    \centering
+    \includestandalone[width=0.45\textwidth]{./assets/tikzfigures/tikz-#1}
+    \caption{#2}
+    \figlab{#1}
+  \end{figure}
+}
+
+%\usepackage{pifont,mdframed}
+%
+%\newenvironment{warning}{
+  %\medskip
+  %\begin{mdframed}[linewidth=2pt,linecolor=red]%
+    %\begin{list}{}{
+      %\leftmargin=1cm
+        %\labelwidth=\leftmargin}
+      %\item[\Large\ding{43}]}
+    %{\end{list}
+  %\end{mdframed}
+%}
+%
+\usepackage{listings}
+\usepackage{standalone}
+\usepackage{pythontex}
+
+\usepackage{csquotes}
+\usepackage{pifont,mdframed}
+
+\newenvironment{warning}
+  {\medskip\par\begin{mdframed}[linewidth=2pt,linecolor=red]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\Large\ding{43}]}
+  {\end{list}\end{mdframed}\par}
+

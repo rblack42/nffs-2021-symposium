@@ -11,6 +11,7 @@ Welcome to Math Magik's documentation!
    :caption: Contents:
 
 
+   published
 
 Indices and tables
 ==================

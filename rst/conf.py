@@ -24,7 +24,7 @@ extensions = [
     'sphinxcontrib.bibtex',
 ]
 
-bibtex_bibfiles = ['references.bib']
+bibtex_bibfiles = ['../assets/references.bib']
 
 
 
