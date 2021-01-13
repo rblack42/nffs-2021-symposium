@@ -1,4 +1,6 @@
+wheel
 numpy
 numpy-stl
+pandoc
 sphinx
 sphinxcontrib-bibtex
