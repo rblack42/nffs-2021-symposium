@@ -1,0 +1,34 @@
+\section*{Generating STL Files}
+
+Many folks who use OpenSCAD generate {\it STL} files from their design. These
+files are used as part of the 3D printing process. Although I wish we could 3D
+print flyable model airplanes, that is not what we will do with the STL files
+in this project.
+
+STL stands for {\it Standard Tessellation Library} \citep{stlwiki}. Translated,
+that means an STL file is a list of triangular objects that describe the
+surface of a 3D object. These triangles cover the surface making a ``water
+tight'' approximation to the real surface. Triangles are guaranteed to be flat
+in the 3D space, and if they are tiny enough, they can be rendered to create a
+3D display of the object, or sent to a 3D printer after suitable processing of all
+the triangles so the printer knows where the surface is (that is a topic for
+another article!)
+
+My purpose in introducing these triangles is simple. I want to know how much my
+model will weigh, and I want to know where the center of gravity will be when
+the design is constructed. Figuring out these two details is impossible using
+conventional building techniques: you build the model, weight it, anf figure
+out the center of gravity manually. Computer geeks never do anything manually
+if they can get their computer to do the work.
+
+I found a nice Python library that is all set up to figure out the volume of a
+3D shape defined in an STL file, and return it's center of gravity location. It
+is simple enough to add in the predicted wood density for the design and come
+up with a weight estimate for each part. A little post-processing of all this
+data will give us some estimate of the total designs weight. Unfortunately,
+figuring out the weight of the glue is not so simple. For that we need to know
+where each glue joint will be and the surface area of the glue joint. I am
+working on that problem now, but am not ready to show any results yet. 
+
+Knowing where each part will be placed in the final design, and the CG data for
+that part will let us predict the CG for the complete model as well! 

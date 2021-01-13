@@ -1,0 +1,21 @@
+# vim
+*~ 
+*.swp
+
+# Python
+*.py[cod]
+_venv
+__pycache__
+
+# sphinx
+_build
+
+# Mac
+.DS_Store
+
+# TeX
+*.aux 
+*.bbl 
+*.blg 
+*.log 
+*.out
