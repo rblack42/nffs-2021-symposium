@@ -1,0 +1,15 @@
+\documentclass[border=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc, intersections}
+
+\begin{document}
+\begin{tikzpicture}
+
+  \draw[thick] (0,0) -- (6,0) -- (6,5) -- (2,5);
+  \draw[thick] (0,0) -- (0,3);
+  \draw[thick] (0,3) arc(180:90:2);
+  \draw(0,3) -- (2,3) -- node[left] {$r_{tip}$} (2,5);
+  \draw[<->] (5.75,0) -> node[left] {chord} (5.75,5);
+\end{tikzpicture}
+\end{document}
+

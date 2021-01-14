@@ -1,0 +1,151 @@
+\section*{\mbox{Constructive Solid Geometry}}
+
+OpenSCAD builds 3D models using a small set of primitive shapes, and a set of
+movement and combining operations to create more complex models.
+
+\subsection*{Primitive Shapes}
+
+Openscad supports both 2D and 3D shapes. We will be using some simple 2D
+shapes, like circles and rectangles, and more complex 2D shapes like a polygon.
+The 3D shapes we will use include spheres, cylinders, and cubes. All of these
+shapes can be scaled and moved around using simple movement operations.
+
+\subsection*{3D Primitives}
+For our first look at how you do things in OpenSCAD, here is a piece of code
+that will show the three basic 3D shapes:
+
+\includecode{scad/demo1.scad}
+
+Figure \ref{fig:demo1.png} shows the result.
+
+\importimage{demo1.png}{Demo 1}
+
+Each primitive shape is created at the origin. Cubes are created in the region
+where all three coordinates are positive. Spheres are created with the center
+of the sphere at the origin. The cylinder is centered along the {\bf Z} axis.
+If you look closely, you will see a small representation of the coordinate
+directions at the lower left of this image.
+
+These shapes do not look quite right. The problem is that OpenSCAD generates
+approximations to the rounded shaped, using a set of small polygons to build up
+the model. If we make these polygons smaller, things look better. All we need
+to do to fix this is change the code so it looks like this:
+
+\includecode{scad/demo2.scad}
+
+Figure \ref{fig:demo2.png} shows a much better result.
+
+\importimage{demo2.png}{Demo 2}
+
+Some shapes are smart and can form different versions of themselves:
+
+\includecode{scad/demo3.scad}
+
+Figure \ref{fig:demo3.png} shows a warped cube and cylinder. Spheres are not so
+smart, they stay spheres unless we warp them with external commands.
+
+\importimage{demo3.png}{Demo 3}
+
+Specifying things in 3D is often done using the notation seen in the {\it
+cube()} command. The numbers are the size we want in the {\bf [x,y,z]}
+directions. This is a {\it vector} which we will use a lot in our work.
+
+\subsection*{2D primatives}
+
+2D shapes include the circle and square, which act much like their 3D
+counterparts. A more interesting 2D shape is the {\it polygon}.
+
+\includecode{scad/polygon-demo1.scad}
+
+Here, we create {\it variables} and set them equal to a list of vectors. 2D
+vectors have only 2 numbers, for the {\bf X} and {\bf Y} coordinate values. The
+first list defines a set of six points: three for the outer triangle, and three
+more for the inner triangle. The second list identifies {\it paths} meaning a
+continuous line that makes up a closed circuit, one for the outer triangle, and
+one for the inner triangle. (I know this is confusing, but we will not need
+much of this kind of code in our design work.)
+
+\importimage{polygon-demo1.png}{Polygon Demo 1}
+
+Figure \ref{fig:polygon-demo1.png}shows a  2D shape with no thickness, although
+OpenSACD gives it enough of a thickness to show up on the screen.
+
+We can use this 2D shape to create a 3D object by {\it extruding it} in the
+{\bf Z} direction:
+
+\includecode{scad/polygon-demo2.scad}
+
+Figure \ref{fig:polygon-demo2.png} definitely shows an interesting shape.
+
+\importimage{polygon-demo2.png}{Polygon Demo 2}
+
+Obviously, we can form some interesting things with OpenSCAD> But things get
+even more interesting when we start combining multiple shapes to form even more
+complex objects.
+
+\subsection{Combining Operations}
+
+We form more complex objects by moving thngs around and combining them to form other objects. An example found in the {\it Wikipedia} article on CSG demonstrates these operations.
+
+Suppose you wanted to build something that looks like Figure \ref{fig:csg-demo.png}.
+
+\importimage{csg-demo.png}{CSG Example Shape}
+
+This shape was inspired from an example in the Wikipedia article on CSG
+\cite{csgwiki}.
+
+We can form this shape using three cylinders, a sphere, and a cube. We use all
+three basic combining operations to construct the final shape.
+
+Here is the OpenSCAD code used to generate this shape:
+
+\includecode{scad/csg-demo.scad}
+
+There is a lot to absorb here, but taken a piece at a time, it is not so bad.
+
+\subsubsection*{Modules}
+
+OpenSCAD lets you package a number of operations in a {\it module} that you can
+activate later, one or more times. The module can have parameters, which makes
+this a powerful way to manage shapes that are similar, but differ in some set
+of parameters. We will create a basic rib module for this model, and use
+parameters to control the exact rib we want.
+
+The name we choose for each module should help you remember what the module is
+all about. In this example, we are interested in the final {\bf part} shape,
+which is constructed using the difference operation. This final module uses two
+supporting modules to build the part. Note that the code does not care about
+how you write your code, but it is common to use indentation to show that
+operations are being applied to one of more groups of operations.Also, we
+surround a sequence of individual operations inside of curly braces when
+needed.
+
+To build this part, we first set up three cylinders, aligned along each
+coordinate axis. The {bf center} parameter, sets each cylinder up with the
+origin of the coordinate system at the exact center of the cylinder. That
+strange {\bf \$fn=32} parameter is needed ot make OpenSCAD generate cylinders
+that actually look round. Inside, OpenSCAD uses small straight line segments to
+generate a curve, and by default the size of these lines is pretty large, so we
+raise the number of segments we want with this number. Too many and rendering
+our model will be slow.
+
+Notice that all three of these cylinders occupy the same space. In the real
+world, we could not do that, but in our modeling world this is common. We form
+the {\bf union} of these three overlapping cylinders to form one merged shape.
+Many times, we could skip the {\bf union} operation and just place the shapes where
+we want. This would be an important issue if we were actually going to 3D print
+an object, but it is not really important when all we want to do is see our
+design.
+
+The outer shell of our part is made up of the {\bf intersection} of a sphere
+and a cube. We size the cube shape so it trims off the six sides of the sphere
+where holes will end up.  Finally, we use the {\bf difference} operator to
+carve out the inside of the part, using our three-cylinder shape.
+
+Successfully building 3D models involves visualizing what you want, then
+arranging simple shapes as needed and performing these simple combining
+operations to generate the gadget you want! It takes practice! The more you
+experiment the better you will get!
+
+I encourage you to fire up OpenSCAD and type in this code. You will be better
+able to see how things work by doing this!

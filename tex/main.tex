@@ -1,18 +1,20 @@
 \documentclass[10pt,twocolumn]{article}
+\usepackage{nffs}
+
 \author{Roie R. Black}
 \date{\today}
 \title{Designing an Indoor Model using OpenSCAD}
+\titlepic{\includegraphics[width=0.66\textwidth]{./assets/images/math-magik-lpp.png}}
 
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage[square,numbers]{natbib} % number style bibliography
-\usepackage{hyperref} % enable active url links
-\usepackage{parskip} % no indents on paragraphs
-\usepackage{graphicx}
 
 \begin{document}
 \maketitle
 
+\input{introduction}
+\input{openscad}
+\input{geometry}
+\input{wing}
+\input{stab-fin}
 \input{stl-files}
 \input{biography}
 

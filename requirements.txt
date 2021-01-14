@@ -4,3 +4,4 @@ numpy-stl
 pandoc
 sphinx
 sphinxcontrib-bibtex
+sympy

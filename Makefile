@@ -21,8 +21,10 @@ docs:
 tex:
 	cd tex && \
 	pdflatex main && \
-	bibtex main && \
+	python main.sympy && \
 	pdflatex main && \
+	bibtex main && \
+	pdflatex main $$ \
 	cp main.pdf ../docs/article.pdf && \
 	pandoc main.tex -o ../docs/article.docx
 
