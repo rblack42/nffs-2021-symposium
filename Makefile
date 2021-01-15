@@ -25,7 +25,10 @@ tex:
 	pdflatex main && \
 	bibtex main && \
 	pdflatex main $$ \
-	pdflatex main $$ \
+
+.PHONY: pub
+pub:
+	cd tex && \
 	cp main.pdf ../docs/article.pdf && \
 	pandoc main.tex -o ../docs/article.docx
 

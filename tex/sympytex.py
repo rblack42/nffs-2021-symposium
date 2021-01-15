@@ -1,3 +1,30 @@
+"""
+%%
+%% This is file `sympytex.py',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% sympytexpackage.dtx  (with options: `python')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2009-2014 by Tim Molteno <tim@physics.otago.ac.nz>
+%% 
+%% This program is free software: you can redistribute it and/or modify it
+%% under the terms of the GNU General Public License as published by the
+%% Free Software Foundation, either version 2 of the License, or (at your
+%% option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+%% General Public License for more details.
+%% 
+%% You should have received a copy of the GNU General Public License along
+%% with this program.  If not, see <http://www.gnu.org/licenses/>
+%% 
+"""
 import sys
 if __name__ == "__main__":
   print("""This file is part of the SympyTeX package.
@@ -18,9 +45,9 @@ import shutil
 initplot_done = False
 dirname       = None
 filename      = ""
-
 def ttexprint(exp):
-  return sympy.latex(exp, mode='inline').strip('$')
+  st = sympy.latex(exp, mode='inline')
+  return st.strip('$')
 def progress(t,linebreak=True):
   if linebreak:
     print(t)
@@ -70,7 +97,7 @@ def plot(counter, p, format='notprovided', epsmagick=False, **kwargs):
     if (isinstance(p, Plot)):
       p.save(plotfilename)
     else:
-      p.savefig(filename=plotfilename, **kwargs)
+      p.savefig(fname=plotfilename, **kwargs)
     if format != 'notprovided' and epsmagick is True:
       print('Calling Imagemagick to convert plot-%s.%s to EPS' % \
         (counter, format))
@@ -94,9 +121,8 @@ def endofdoc():
   sympyf = open(filename + '.sympy', 'r')
   m = hashlib.md5()
   for line in sympyf:
-    line = line.encode('utf-8')
     if line[0:15] != ' sympytex.goboom':
-      m.update(line)
+      m.update(line.encode('utf-8'))
   s = '%' + m.hexdigest() + '% md5sum of .sympy file (minus "goboom" \
 lines) that produced this\n'
   _file_.write(s)

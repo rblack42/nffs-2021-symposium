@@ -2,7 +2,7 @@
 
 Let's start off this design by building the wing.
 
-\subsection*{Design Constraints}
+\subsection*{Basic Wing Layout}
 
 The class rules specify two constraints on the design of the wing. The
 projected span is limited to 18 inches, nd the maximum chord is limited to five
@@ -18,13 +18,11 @@ other dimensions as long as we respect this limit.
 
 \subsection*{Circular Arc Airfoils}
 
-Many indoor model airplanes use a simple circular arc airfoil.
-
-The rules specify limits on the chord for both the wing and stabilizer.  have
-some specified chord for either the wing or stabilizer, and the airfoil is
-specified as an arc with a maximum height that is some percentage of that
-chord. So, we are given the chord, and thickness as a percentage value. The
-challenge is to figure out the radius of the arc that satisfies these values.
+Like many indoor model airplanes, we will use a simple circular arc airfoil.
+The airfoil is typically specified as an arc with a maximum height that is some
+percentage of the wing chord.  So, given the chord, and thickness as a
+percentage value, we need to figure out the radius of the arc given these two
+values.
 
 \subsubsection*{Arc Geometry}
 
@@ -64,15 +62,15 @@ The unknown variables are now:
 \end{itemize}
 
 While we could drag out our old math books from high school, I would rather let
-my computer do the hard work. Time for SymPy \cite{sympy}!
+my computer do the hard work. Time for {\it SymPy} \cite{sympy}!
 
 \subsubsection{SymPy}
 
-SymPy is a Python program that knows how to do a lot of math. It manipulates
+{\it SymPy} is a Python program that knows how to do a lot of math. It manipulates
 {\it symbols}, not numbers, and that is a lot of what you should have learned in
 a trigonometry classes.
 
-Here is how we get SymPy to solve our equations:
+Here is how we get {\it SymPy} to solve our equations:
 
 \includecode{python/circular-arc.py}
 
@@ -92,67 +90,68 @@ Here are the solutions:
 \sympy{sol}
 \end{equation}
 
-Here, I asked SymPy to solve the two equations for the two {\it symbols} {\bf
+Here, I asked {\it SymPy} to solve the two equations for the two {\it symbols} {\bf
 r} and {$ \theta $}. The two solutions are shown. The first one is the {\bf
 radius} we need to our code.  We do not really need to worry about the angle
 part.
 
-We will use these result to set up an OpenSCAD module that will build our ribs.
+We will use these result to set up an {\it OpenSCAD} module that will build our ribs.
 
 Warning! If there are any parents reading this, do not let your kids know about
 SymPy.  On the other hand, if you cannot solve your kids math homework, you
-might try SymPy on the sly! YMMV!
+might try {\it SymPy} on the sly! YMMV!
 
 \subsection{Ribs}
 
-The ribs for this model will be simple circular arcs. We need to specify the
-chord, and the camber thickness as a percentage of the chord, we also need to
-specify how thick the rib will be and how deep the rib will be. We will create
-a simple module to let the user generate as many ribs as needed, adjusting each
-with the needed parameters:
+Now that we have our equations figured out, we can proceed with building a
+module that will generate a single rib. We will write the rib module so it
+takes four parameters:
 
 \begin{lstlisting}
-rib(
-  chord=5,
-  camber=6,
-  thickness=1/32,
-  height=1/16
-);
+module rib(
+    chord = 5,
+    camber = 6,
+    height = 1/16,
+    thickness = 1/32) {
+  ...
+}
 \end{lstlisting}
 
-When I defined the rib module, I set up default values as shown above, so to
-activate a standard rib, I just need to write {\bf rib()}.
+The module's job will be to generate a single rib sitting on the {bf X} axis
+with it's nose at the origin, and standing upright.
 
-The code needed to generate a rib is a bit involved, but basically involves
-creating a short cylinder, cutting out the center of that cylinder leaving a
-tube, then slicing off the part of the ring that leaves just the rib. We then
-rotate it and align it for use later.
+Notice that I defined  default values for each of the parameters, If you are
+happy with those, you can generate a rib by writing {\bf rib();}. You can
+change any of those by providing the parameter name, an equal sign, and a new
+value. So a new chord value would be generated using {\bf rib(chord=4);}. All
+other parameter default values still apply.
 
-Here is an example rib, ready for use:
+The code needed to generate a rib is a bit involved, so I will not show it
+here. Basically, it creates a cylinder using the radius we calculated from our
+formula, and a height equal to the rib thickness.  Then it cuts out the center
+of that cylinder leaving a ring that will have the required rib stick height.
+Next, it slices off the unneeded part of the ring leaving just the rib. The
+final step rotates it upright, and aligns on the {\bf X} axis, ready for use!
+
+Here is an example rib:
 
 \importimage{basic-rib.png}{Basic rib}
 
 \subsection{Wing Center Section}
 
 The leading and trailing edges of this model will be simple 1/16" balsa sticks.
-These are easy to model in OpenSCAD as really skinny cubes. The center section
+These are easy to model in {\it OpenSCAD} as really skinny cubes. The center section
 of the wing holds five equally spaced ribs. This code is pretty simple, so I
 packaged it in a simple module:
 
-\begin{lstlisting}
-wing_center_section(
-  chord=5, nribs= 5, span=12
-);
-\end{lstlisting}
-
 Here is this code:
 
-%\includecode{scad/wing_center.scad}
+\includecode{scad/wing_center.scad}
 
 This code uses a loop to place the ribs. Details on all of these language
 constructs can be found in the {\it Users Manual} \ref{userman}
 
-Figure \ref{fig:wing-center.png}{Wing Center Section}.
+Figure \ref{fig:wing-center.png} shows the wing center section.
 
 \importimage{wing-center.png}{Wing Center Section}
 
