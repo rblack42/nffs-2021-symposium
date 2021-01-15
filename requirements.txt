@@ -1,4 +1,5 @@
 wheel
+matplotlib
 numpy
 numpy-stl
 pandoc
