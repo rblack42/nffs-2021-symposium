@@ -1,0 +1,185 @@
+//##########################################################
+// Limited Pennyplane Rule Limits
+// all dimensions are in inches
+
+max_projected_span = 18.0;
+max_wing_chord = 5.0;
+max_overall_length = 20.0;
+front_bearing_to_hook = 10.0;
+max_stab_span = 12.0;
+max_stab_chord = 4.0;
+max_propeller_diameter = 12.0;
+minimum_weight = 3.1;   // grams
+
+//##########################################################
+// paper tube dimensions
+
+paper_tube_thickness = 0.002;
+
+//##########################################################
+// motor stick dimensions
+
+ms_length = 10.0;
+ms_thickness = 1.0/8.0;
+ms_height = 3.0/8.0;
+ms_front_height = 3/16;
+ms_rear_height = 3/16;
+
+//##########################################################
+// tail boom dimensions
+
+tb_length = 9 + 7/8;
+tb_thickness = 1/16;
+tb_front_height = ms_rear_height;
+tb_rear_height = 1/16;
+tb_overlap = 1/8;
+
+//##########################################################
+// wing dimensions
+
+wing_spar_thickness = 1/16;
+wing_spar_height = 1/16;
+wing_tip_projected_span = 2.5;
+wing_center_span = max_projected_span - wing_tip_projected_span;
+wing_tip_radius = 2;
+wing_tip_dihedral_angle = 40;
+
+number_of_wing_ribs = 5;
+wing_rib_chord = max_wing_chord - 2 * wing_spar_thickness;
+wing_rib_thickness = 1/32;
+wing_rib_height = wing_spar_thickness;
+wing_rib_camber = 4.5;      // percent of chord
+
+//##########################################################
+//wing post dimensions
+
+wing_post_diameter = 1/16;
+wing_post_length = 1/16;
+wing_post_le_height = 3.125;
+wing_post_te_height = 3.125;
+
+wing_tube_height = 3/8;
+wing_tube_color = "yellow";
+
+ms_wing_le = 1 + 5/8;
+ms_front_wing_post = ms_wing_le
+    - wing_post_diameter/2 - paper_tube_thickness;
+ms_rear_wing_post = ms_front_wing_post + max_wing_chord
+    + 2 * paper_tube_thickness + wing_post_diameter/2;
+
+//##########################################################
+// stab dimensions
+
+stab_spar_thickness = 1/16;
+stab_spar_height = 1/16;
+stab_tip_span = 3;
+stab_span = max_stab_span;
+stab_chord = max_stab_chord;
+stab_center_span = stab_span - 2 * stab_tip_span;
+stab_tip_radius = 1.5;
+
+number_of_stab_ribs = 3;
+stab_rib_chord = stab_chord - 2 * stab_spar_thickness;
+stab_rib_thickness = 1/32;
+stab_rib_height = wing_spar_thickness;
+stab_rib_camber = 2.5;      // percent of chord
+
+//##########################################################
+// stab post dimensions
+
+stab_post_diameter = 1/16;
+stab_post_height = 1/4;
+
+stab_tube_height = 1/8;
+stab_tube_color = "yellow";
+
+tb_rear_stab_post = ms_length + tb_length - tb_overlap
+    - stab_post_diameter - 2 * paper_tube_thickness;
+tb_front_stab_post = tb_rear_stab_post - stab_chord
+    - stab_post_diameter - 2 * paper_tube_thickness;
+
+//##########################################################
+// rudder dimensions
+
+fin_spar_thickness = 1/16;
+fin_spar_height = 1/16;
+fin_span = 2;
+fin_chord = stab_chord;
+fin_tip_radius = 1.5;
+
+rudder_post_diameter = 1/16;
+rudder_turn_offset = 1/4;
+rudder_post_length = rudder_turn_offset
+    + tb_thickness + fin_spar_thickness;
+
+//##########################################################
+// Propeller dimensions
+
+prop_form_radius = 2.5;
+prop_radius = 6;
+prop_form_height = prop_radius + 2;
+prop_blade_thickness = 1/20;
+prop_max_chord = 1.85;
+prop_form_angle = 14;
+
+larrabee_coords = [
+    [0.00, 0.000],
+    [0.05, 0.027],
+    [0.10, 0.105],
+    [0.15, 0.220],
+    [0.20, 0.360],
+    [0.25, 0.503],
+    [0.30, 0.642],
+    [0.35, 0.762],
+    [0.40, 0.860],
+    [0.45, 0.931],
+    [0.50, 0.978],
+    [0.55, 1.000],
+    [0.60, 0.998],
+    [0.65, 0.976],
+    [0.70, 0.935],
+    [0.75, 0.875],
+    [0.80, 0.799],
+    [0.85, 0.701],
+    [0.90, 0.578],
+    [0.95, 0.411],
+    [0.96, 0.368],
+    [0.97, 0.319],
+    [0.98, 0.261],
+    [0.99, 0.184],
+    [1.00, 0.000],
+    [0.99, -0.184],
+    [0.98, -0.261],
+    [0.97, -0.319],
+    [0.96, -0.368],
+    [0.95, -0.411],
+    [0.90, -0.578],
+    [0.85, -0.701],
+    [0.80, -0.799],
+    [0.75, -0.875],
+    [0.70, -0.935],
+    [0.65, -0.976],
+    [0.60, -0.998],
+    [0.55, -1.000],
+    [0.50, -0.978],
+    [0.45, -0.931],
+    [0.40, -0.860],
+    [0.35, -0.762],
+    [0.30, -0.642],
+    [0.25, -0.503],
+    [0.20, -0.360],
+    [0.15, -0.220],
+    [0.10, -0.105],
+    [0.05, -0.027],
+    [0.00, 0.000],
+];
+
+//##########################################################
+// flight box dimensions
+
+box_width = max_overall_length + 2;
+box_height = max_wing_chord + 4;
+box_wing_depth = 6;
+box_body_depth = 2;
+box_stab_depth = 6;
+box_side_thickness = 1/8;

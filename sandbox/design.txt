@@ -1,0 +1,106 @@
+wing:
+	left_tip
+		tip_le
+		tip_arc
+		tip_rib
+		tip_te
+	center_section
+		center_le
+		center_te
+		rib: circular_arc(5%)
+		nribs: 5
+	right_tip
+		tip_le
+		tip_arc
+		tip_rib
+		tip_te
+stabilizer
+	left_tip
+		tip_le
+		tip_arc
+		tip_rib
+		tip_te
+	center_section
+		center_le
+		center_te
+		nribs: 3
+		rib: circular_arc(5%)
+	right_tip
+		tip_le
+		tip_arc
+		tip_rib
+		tip_te
+fin
+	fin_le
+	fin_arc
+	fin_outer_rib
+	fin_te
+	fin_inner_rib
+
+motor_stick
+	base_stick: ms_polygon
+
+tail_boom
+	base_stick: tb_polygon
+
+wing_mounts
+	front_post
+		base_post left_of wing_le glue_to motor_stick
+		paper_tube glue_to wing_le
+	rear_post
+		base_post right of wing_te
+		paper_tube glue_to wing_te
+
+stab_posts
+		front_post
+		base_post left_of stab_le
+		paper_tube glue_to stab_le
+	rear_post
+		base_post right of stab_te
+		paper_tube glue_to stab_te
+
+fin_post
+		base_post at tail_boom.end
+
+propeller
+	span
+	blade_offset
+	blade1
+		chord
+		span
+		flair_offset
+		planform: larrabee
+	blade2
+		chord
+		span
+		flair_offset
+		planform: larrabee
+	spar
+		thickness
+		width
+		taper
+	shaft
+		hook: s-hook
+		prop_stub_length: 0.25
+		shaft_length: 0.75
+
+front_bearing
+	wire_size
+	front angle
+	rear_angle
+	height
+	width
+	down_thrust
+	side_thrust
+
+rear_hook
+	wire_size
+	offset
+
+motor
+	tube_size
+	tube_length
+	weight
+
+
+

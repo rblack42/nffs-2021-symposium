@@ -1,0 +1,54 @@
+{
+  "lpp":
+  [
+    {
+      "name": "wing",
+      "scad": "wing.scad",
+      "span": "18.0",
+      "chord": "5",
+      "center_span": "12",
+      "tip_radius": ".0",
+      "dihedral": "1.75",
+      "pos": { "x": "1.5", "y": "0.0", "z": "1.5" },
+      "rotation": { "x": "0.0", "y": "1.0", "z": "0.0" }
+    },
+    {
+      "name": "stabilizer",
+      "scad": "stab.scad",
+      "span": "12.0",
+      "chord": "4",
+      "center_span": "8",
+      "tip_radius": "1.5",
+      "dihedral": "0.0",
+      "pos": { "x": "16.0", "y": "0.0", "z": "0.5" },
+      "rotation": { "x": "0.0", "y": "0.0", "z": "0.0" }
+    },
+    {
+      "name": "fin",
+      "scad": "rudder.scad",
+      "span": "2.0",
+      "chord": "4.0",
+      "tip_radius": "1.5",
+      "pos": { "x": "16.0", "y": "0.0", "z": "0.0" },
+      "rotation": { "x": "0.0", "y": "0.0", "z": "-3.0" }
+    },
+    {
+      "name": "fuselage",
+      "scad": "fuselage.scad"
+    },
+    {
+      "name": "propeller",
+      "scad": "prop.scad",
+      "diameter": "12.0",
+      "pos": { "x": "-0.25", "y": "0.0", "z": "-0.15" }
+    },
+    {
+      "name": "motor",
+      "scad": "motor.scad",
+      "length": "10.0",
+      "weight": "3.8",
+      "diameter": "0.25",
+      "color": "brown"
+    }
+  ]
+}

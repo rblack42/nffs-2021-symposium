@@ -11,13 +11,13 @@ surface of a 3D object. These triangles cover the surface making a ``water
 tight'' approximation to the real surface. Triangles are guaranteed to be flat
 in the 3D space, and if they are tiny enough, they can be rendered to create a
 3D display of the object, or sent to a 3D printer after suitable processing of all
-the triangles so the printer knows where the surface is (that is a topic for
-another article!)
+the triangles so the printer knows where the surface is \(that is a topic for
+another article!\)
 
 My purpose in introducing these triangles is simple. I want to know how much my
 model will weigh, and I want to know where the center of gravity will be when
 the design is constructed. Figuring out these two details is impossible using
-conventional building techniques: you build the model, weight it, anf figure
+conventional building techniques: you build the model, weight it, and figure
 out the center of gravity manually. Computer geeks never do anything manually
 if they can get their computer to do the work.
 
@@ -28,7 +28,81 @@ up with a weight estimate for each part. A little post-processing of all this
 data will give us some estimate of the total designs weight. Unfortunately,
 figuring out the weight of the glue is not so simple. For that we need to know
 where each glue joint will be and the surface area of the glue joint. I am
-working on that problem now, but am not ready to show any results yet. 
+working on that problem now, but am not ready to show any results yet.
 
 Knowing where each part will be placed in the final design, and the CG data for
-that part will let us predict the CG for the complete model as well! 
+that part will let us predict the CG for the complete model as well!
+
+Let's demonstrate this idea using a simple rib section.
+
+\subsection{Estimating Weights}
+
+I have worked to set up each major part you would need to create out of balsa,
+or other materials as a module we can activate separately. In this example, I
+will show how to estimate the weight of a single wing rib.
+
+For this section, I will be using OpenSCAD as a {\it command-line} tool,
+something that may not be familiar to non-programmers. Details on this are on
+the project website, but basically, we will open up a window where we can type
+in commands to the operating system. This will involve running a {\bf cmd.exe}
+on a Windows system, and opening up a {\it terminal} on Mac and Linux systems.
+
+We will run OpenSCAD as a tool and will not open up the graphical user
+interface you normally see. In this mode, OpenSCAD will read a file, process it
+and generate an output file containing the results we want. In this example, we
+will be asking it to generate an STL file from a part definition {\it scad}
+file.
+
+My {\bf rib.scad} file is set up to display a single rib if you load it in
+OpenSCAD normally. The command I give to my Operating System to generate the
+{\it STL} file looks like this:
+
+\begin{lstlisting}
+openscad rib.scad -o rib.stl
+\end{lstlisting}
+
+That is not so bad. If you check the directory where we ran this command (the
+one containing {\bf rib.scad}, you will see a new file named {\bf rib.stl}. You
+can examine this file, but all it contains is a bunch of definitions of the
+triangles needed to enclose a single rib.
+
+Using the Python library to get the rib data is pretty easy. Here is the code
+I used:
+
+\includecode{stl/getvolume.py}
+
+This program is run from the command line as follows:
+
+\begin{lstlisting}
+python genvolume.py rib 4.5
+\end{lstlisting}
+
+The parameters are the name of the shape file, and the density in pounds per cubit foot.
+
+This will process the rib.scad file in the current directory, and print out the
+volume and CG information. It also prints the bounds of the box occupied by the
+shape, and the expected weight for the part.
+
+Here is the output I saw from my test:
+
+\begin{lstlisting}
+\$ python getvolume.py rib 4.5
+Processing rib with density 4.5
+Shape bounds are:
+  X: 0.0 <-> 5.0
+  Y: -0.015625 <-> 0.015625
+  Z: -2.543129937748745e-07 <-> 0.36250001192092896
+Shape volume: 0.009852695666874448 cubic inches
+Shape CG    : [2.50000603e+00 6.15394834e-11 2.27255040e-01]
+Estimated weight = 0.011571327789516752 grams
+\end{lstlisting}
+
+That is pretty cool, and the numbers look reasonable for this rib!
+
+At present, I am working on setting up a system to calculate the total weight
+and center of gravity data for this design. The input will be a data file
+listing the parts needed to build th design, where those parts will be located.
+The output will be the total weight and center of gravity estimates, as well as
+the total bounds of the airplane, - so you can check that you satisfy the rule
+constraints.
+

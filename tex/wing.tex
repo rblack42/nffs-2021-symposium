@@ -14,17 +14,17 @@ is our starting geometry:
 
 
 The constraint in this figure is {\bf max\_span}. We are free to choose the
-size of either the dihedral angle, or offset of the tip section.
+other dimensions as long as we respect this limit.
 
 \subsection*{Circular Arc Airfoils}
 
 Many indoor model airplanes use a simple circular arc airfoil.
 
-Usually, these models have some specified chord for either the wing or
-stabilizer, and the airfoil is specified as an arc with a maximum height that
-is some percentage of that chord. So, we are given the chord, and thickness as
-a percentage value. The challenge is to figure out the radius of the arc that
-satisfies these values.
+The rules specify limits on the chord for both the wing and stabilizer.  have
+some specified chord for either the wing or stabilizer, and the airfoil is
+specified as an arc with a maximum height that is some percentage of that
+chord. So, we are given the chord, and thickness as a percentage value. The
+challenge is to figure out the radius of the arc that satisfies these values.
 
 \subsubsection*{Arc Geometry}
 
@@ -60,7 +60,7 @@ The unknown variables are now:
 
 \begin{itemize}
   \item{{\bf r} - the radius of the circular arc}
-  \item{{$\theta$} - one half of the total angle swept by the arc}
+  \item{{$ \theta $} - one half of the total angle swept by the arc}
 \end{itemize}
 
 While we could drag out our old math books from high school, I would rather let
@@ -79,12 +79,12 @@ Here is how we get SymPy to solve our equations:
 Running this code, we find our solution:
 
 \begin{sympyblock}
-r,c,t,theta = sympy.symbols('r c t theta')
+r,c,t,theta = \
+  sympy.symbols('r c t theta')
 
 eq1 = 2 * r * sympy.cos(theta) - c
 eq2 = r - r * sympy.sin(theta) - t
 sol = sympy.solve([eq1,eq2],[r,theta])
-
 \end{sympyblock}
 
 Here are the solutions:
@@ -92,9 +92,10 @@ Here are the solutions:
 \sympy{sol}
 \end{equation}
 
-Here, I asked SymPy to solve the two equations for the two {\it symbols} {\bf r}
-and {$\theta$}. The two solutions are shown. The first one is the {\bf radius} we need to our code.  We do not really need to worry
-about the angle part.
+Here, I asked SymPy to solve the two equations for the two {\it symbols} {\bf
+r} and {$ \theta $}. The two solutions are shown. The first one is the {\bf
+radius} we need to our code.  We do not really need to worry about the angle
+part.
 
 We will use these result to set up an OpenSCAD module that will build our ribs.
 
@@ -119,7 +120,7 @@ rib(
 );
 \end{lstlisting}
 
-When I defined the rib module, I set un default values as shown above, so to
+When I defined the rib module, I set up default values as shown above, so to
 activate a standard rib, I just need to write {\bf rib()}.
 
 The code needed to generate a rib is a bit involved, but basically involves
@@ -134,7 +135,7 @@ Here is an example rib, ready for use:
 \subsection{Wing Center Section}
 
 The leading and trailing edges of this model will be simple 1/16" balsa sticks.
-These are easy to model oin OpenSCAD as really skinny cubes. The center section
+These are easy to model in OpenSCAD as really skinny cubes. The center section
 of the wing holds five equally spaced ribs. This code is pretty simple, so I
 packaged it in a simple module:
 
@@ -149,7 +150,7 @@ Here is this code:
 %\includecode{scad/wing_center.scad}
 
 This code uses a loop to place the ribs. Details on all of these language
-constructs can be found in the {\it Users Manual} \ref{scadman}
+constructs can be found in the {\it Users Manual} \ref{userman}
 
 Figure \ref{fig:wing-center.png}{Wing Center Section}.
 
@@ -191,12 +192,12 @@ strip and place it at a slight angle so we end up chopping off the unwanted
 material leaving a tapered strip. It is easy enough to do this twice to get the
 result we are after. This is sanding with no mess!
 
-Figure \ref{fig:trim-block.png}  an image showing the basic idea
+Figure \ref{fig:trim-block.png} shows the basic idea.
 
 \importimage{trim-block.png}{Trimming Block}
 
 
-FIgure{wing-tip.png}{Wing Tip} shows the final tip section.
+Figure \ref{fig:wing-tip.png} shows the final tip section.
 
 \importimage{wing-tip.png}{Wing Tip}
 
@@ -204,22 +205,32 @@ FIgure{wing-tip.png}{Wing Tip} shows the final tip section.
 
 I kept this design simple. The only templates needed will be used for forming
 the curved segments at the tips. Fortunately, OpenSCAD can help generate
-printed templates we can use!
+printed templates we can use! Here is the code used.
+
+\includecode{demo/printer-test.scad}
+
+The {\it scale} operation is what sized the shape so it prints accurately. Most
+of the rest of the code just made adjustments so the template printed properly
+on my printer. These might need adjusting for different printers.
 
 Basically, we set up code that generates a tip section, then flatten it back
-into a 2D drawing. The operation that does this is called a {\bf projection}.
+into a 2D drawing. The operation that does this is called a {\it projection}.
 Once that is set up, we will ask OpenSCAD to export this model as an SVG file
 which can be printed. I use my Chrome browser to do the printing on my home
-printer.  Figure \ref{tip-template.png} shows what the template looks like in
-Chrome.
+printer.  Figure \ref{fig:tip-template.png} shows what the template looks like
+in Chrome.
 
 \importimage{tip-template}{Tip Template}
 
 \subsection{Wing Assembly}
 
-All we need to to to complete the wing is generate the center section, then generate the wing tips and rotate them into place at the proper dihedral angle. The only thing tricky here is generating the two tip sections.
+All we need to to to complete the wing is generate the center section, then
+generate the wing tips and rotate them into place at the proper dihedral angle.
+The only thing tricky here is generating the two tip sections.
 
-Since the tip is flat, I can generate two of then, and rotate one 180 degrees so it will fit on the opposite side. I do need to do some minor translating to make sure things line up, but by now, this is getting easy!
+Since the tip is flat, I can generate two of then, and rotate one 180 degrees
+so it will fit on the opposite side. I do need to do some minor translating to
+make sure things line up, but by now, this is getting easy!
 
 Figure{fig:wing.png}{Final Wing} shows the completed wing.
 

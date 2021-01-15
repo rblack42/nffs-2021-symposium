@@ -25,10 +25,11 @@ tex:
 	pdflatex main && \
 	bibtex main && \
 	pdflatex main $$ \
+	pdflatex main $$ \
 	cp main.pdf ../docs/article.pdf && \
 	pandoc main.tex -o ../docs/article.docx
 
 .PHONY: clean
 clean:
 	cd tex && \
-		rm -f *.aux *.bbc *.bbl *.log *.out
+		rm -f *.aux *.bbc *.bbl *.log *.out *.sympy *.sout
