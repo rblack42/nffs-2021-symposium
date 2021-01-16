@@ -62,7 +62,7 @@ The unknown variables are now:
 \end{itemize}
 
 While we could drag out our old math books from high school, I would rather let
-my computer do the hard work. Time for {\it SymPy} \cite{sympy}!
+my computer do the hard work. Time for {\it SymPy}~\cite{sympy}!
 
 \subsubsection{SymPy}
 
@@ -76,26 +76,37 @@ Here is how we get {\it SymPy} to solve our equations:
 
 Running this code, we find our solution:
 
-\begin{sympyblock}
+\begin{sympysilent}
 r,c,t,theta = \
   sympy.symbols('r c t theta')
 
 eq1 = 2 * r * sympy.cos(theta) - c
 eq2 = r - r * sympy.sin(theta) - t
 sol = sympy.solve([eq1,eq2],[r,theta])
-\end{sympyblock}
+\end{sympysilent}
 
-Here are the solutions:
 \begin{equation}
 \sympy{sol}
 \end{equation}
 
-Here, I asked {\it SymPy} to solve the two equations for the two {\it symbols} {\bf
+{\it SymPy} actually displays those solutions like this:
+
+\begin{lstlisting}
+[(
+  c**2/(8*t) + t/2,
+  2*atan((c - 2*t)/(c + 2*t))
+)]
+\end{lstlisting}
+
+It can also produce an output I can include in my documentation that looks much
+nicer, which is what you see above.
+
+I asked {\it SymPy} to solve the two equations for the two {\it symbols} {\bf
 r} and {$ \theta $}. The two solutions are shown. The first one is the {\bf
 radius} we need to our code.  We do not really need to worry about the angle
 part.
 
-We will use these result to set up an {\it OpenSCAD} module that will build our ribs.
+We will use these result to set up an \osc\ module that will build our ribs.
 
 Warning! If there are any parents reading this, do not let your kids know about
 SymPy.  On the other hand, if you cannot solve your kids math homework, you
@@ -117,14 +128,21 @@ module rib(
 }
 \end{lstlisting}
 
-The module's job will be to generate a single rib sitting on the {bf X} axis
+\osc\ supports {\it global variables}. This means you
+can define a variable at the top of a file,  give it a value, then use
+that variable anywhere in the code. Unfortunately, that makes it hard to take
+your module to another program, since it depends on those variables. Writing
+your modules so they depend only on data they receive through parameters makes
+for better code.
+
+The {\bf rib} module's job will be to generate a single rib sitting on the {bf X} axis
 with it's nose at the origin, and standing upright.
 
 Notice that I defined  default values for each of the parameters, If you are
 happy with those, you can generate a rib by writing {\bf rib();}. You can
 change any of those by providing the parameter name, an equal sign, and a new
-value. So a new chord value would be generated using {\bf rib(chord=4);}. All
-other parameter default values still apply.
+value. So generating a rib with only a new chord value would look like this:
+{\bf rib(chord=4);}. All other parameter default values still apply.
 
 The code needed to generate a rib is a bit involved, so I will not show it
 here. Basically, it creates a cylinder using the radius we calculated from our
@@ -137,16 +155,17 @@ Here is an example rib:
 
 \importimage{basic-rib.png}{Basic rib}
 
-\subsection{Wing Center Section}
+\subsection*{Wing Center Section}
 
 The leading and trailing edges of this model will be simple 1/16" balsa sticks.
-These are easy to model in {\it OpenSCAD} as really skinny cubes. The center section
+These are easy to model in \osc\ as really skinny cubes. The center section
 of the wing holds five equally spaced ribs. This code is pretty simple, so I
 packaged it in a simple module:
 
 Here is this code:
 
 \includecode{scad/wing_center.scad}
+
 
 This code uses a loop to place the ribs. Details on all of these language
 constructs can be found in the {\it Users Manual} \ref{userman}
@@ -203,7 +222,7 @@ Figure \ref{fig:wing-tip.png} shows the final tip section.
 \subsection{Tip Templates}
 
 I kept this design simple. The only templates needed will be used for forming
-the curved segments at the tips. Fortunately, OpenSCAD can help generate
+the curved segments at the tips. Fortunately, \osc\ can help generate
 printed templates we can use! Here is the code used.
 
 \includecode{demo/printer-test.scad}
@@ -214,7 +233,7 @@ on my printer. These might need adjusting for different printers.
 
 Basically, we set up code that generates a tip section, then flatten it back
 into a 2D drawing. The operation that does this is called a {\it projection}.
-Once that is set up, we will ask OpenSCAD to export this model as an SVG file
+Once that is set up, we will ask \osc\ to export this model as an SVG file
 which can be printed. I use my Chrome browser to do the printing on my home
 printer.  Figure \ref{fig:tip-template.png} shows what the template looks like
 in Chrome.

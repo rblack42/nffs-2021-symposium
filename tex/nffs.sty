@@ -11,7 +11,7 @@
 % program listings
 \usepackage{listings}
 \newcommand{\includecode}[1]{
-    \lstinputlisting[caption=#1, frame=single]{../assets/#1}
+    \lstinputlisting[caption={$ #1 $}, frame=single]{../assets/#1}
 }
 
 % include images as figures
@@ -40,7 +40,18 @@
     \figlab{#1}
   \end{figure}
 }
+\newcommand{\importskinnytikzfigure}[2]{
+  \begin{figure}[htb]
+    \centering
+    \includestandalone[width=0.25\textwidth]{./assets/tikzfigures/tikz-#1}
+    \caption{#2}
+    \figlab{#1}
+  \end{figure}
+}
 
-% pythontex
+% sympytex
 \usepackage{sympytex}
+
+\newcommand{\osc}{{\it OpenSCAD}}
+
 

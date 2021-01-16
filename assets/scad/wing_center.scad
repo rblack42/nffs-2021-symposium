@@ -1,6 +1,6 @@
 use <rib.scad>
 
-module wing_center_spar(
+module wing_spar(
     span,
     le_thickness,
     le_height) {
@@ -24,19 +24,22 @@ module wing_rib(
     ribchord,
     camber,
     thickness,
-    le_thickness,
-    le_height]);
+    height
+  );
 }
 
 module wing_center(
     chord=5,
     span=12,
     nribs=5,
+    camber=5,
     height=1/16,
     thickness=1/16) {
+
   // leading edge
   translate([0,-span/2,0])
     wing_spar(span, height, thickness);
+
   // place ribs
   for (n=[0:1:nribs-1]) {
     offset = -span/2 + span
@@ -45,19 +48,20 @@ module wing_center(
       [thickness,offset,0]
     )
       wing_rib(
-        chord,
+        chord - 2 * thickness,
         camber,
         thickness,
-
-          chord = chord
-            - 2 * thickness
-        );
+        height
+      );
     }
+
+  // trailing edge
     translate([
-            chord  -2 * thickness,
-            -span/2,
-            0])
-    wing-spar(span, thickness, height)
+      chord  -2 * thickness,
+      -span/2,
+      0
+    ])
+      wing_spar(span, thickness, height);
 }
 
 wing_center();

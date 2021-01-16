@@ -1,0 +1,31 @@
+\documentclass[border=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc, intersections}
+
+\begin{document}
+\begin{tikzpicture}
+
+
+\coordinate[label=right:m1] (m0) at (0,0);
+\coordinate (m1) at (0, 1.875);
+\coordinate (m2) at (-9, 2.0);
+\coordinate (m3) at (-9,0);
+\coordinate (m4) at (-5, 0);
+\coordinate (m5) at (-3.75,0);
+\coordinate (m6) at (-1.875,-1.875);
+\coordinate (m7) at (0,-3.75);
+
+% ms top
+  \draw (m0) -- (m1) -- (m2);
+  \draw (m3) --(m0);
+
+  \draw[ultra thick,red] (m4) -- (m5) -- (m7);
+
+% ms bottom
+  \draw (m0) -- (m6);
+
+\draw (m4) -- (m5);
+
+\end{tikzpicture}
+\end{document}
+

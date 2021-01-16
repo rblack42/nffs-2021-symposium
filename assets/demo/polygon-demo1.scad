@@ -5,4 +5,8 @@ triangle_points =[
 triangle_paths =[
   [0,1,2],[3,4,5]
 ];
-polygon(triangle_points,triangle_paths,10);
+polygon(
+  triangle_points,
+  triangle_paths,
+  10
+);

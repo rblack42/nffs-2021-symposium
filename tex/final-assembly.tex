@@ -1,0 +1,61 @@
+\section*{Final Assembly}
+
+Now that we have all of the major components defined, it is time to put things
+together and see the completed model.
+
+\subsection*{Mounting Components}
+
+The wing will be mounted on top of two hard balsa posts using paper tubes.
+These wing posts are glued to the motor stock on the bottom and rounded at the
+top to slide into paper tubes that will be glued to the wing structure.
+
+A similar arrangement is used to attach the stabilizer on top of the tail boom.
+
+The rudder is glued to the bottom on the tail boom, but is offset to provide for
+a turn during flight. A small stick of balsa will be glued to the rear of the
+tail boom and the fin to provide needed support. Should this need adjusting,
+the rear attachment can be unglued and repositioned.
+
+\subsubsection*{Paper Tubes}
+
+Paper tubes are formed on a mandrel using a strip of tissue soaked in thin
+glue and twisted around that mandrel. The resulting tube, after pulling off of
+the mandrel, will be stiff enough to provide the support needed. The posts must
+be carefully sanded to ensure a tight fit.
+
+The code that creates a paper tube, it is just a very skinny hollow cylinder.
+
+Figure \ref{wing-mount-tube.png} shows an image showing how the tubes are attached
+to both the wing and stabilizer:
+
+\importimage{wing-mount-tube.png}{Wing Mount Tube}
+
+\subsubsection*{Mounting Posts}
+
+The posts used to attach the wing and stabilizer are simple sticks of hard balsa with
+rounded tops that are sized for a tight fit in the paper tubes.
+
+Since we need several mounting posts, the code that generates the post is
+placed in another module:
+
+To attach the wing, we need to attach two posts to the motor stick:
+
+
+\subsection*{Mounting Tail Group}
+
+Both the stabilizer and fin mount on the tail boom.
+
+\subsubsection*{Stabilizer}
+
+The stabilizer is mounted on top of the tail boom, using small posts and paper
+tubes to allow for minor adjustments when flying.
+
+To get started, we set up a few dimensions in the data file
+
+\subsubsection{Vertical Fin}
+
+The rudder is simple attached to the bottom of the tail boom, Since that side
+of the boom is canted by the trimming we performed earlier, we need to rotate
+the rudder slightly during positioning.  However, we allow for  left rudder
+attachment to provide a left turn flight path.
+
