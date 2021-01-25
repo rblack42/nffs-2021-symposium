@@ -1,0 +1,84 @@
+\section*{OpenSCAD}
+
+Installing OpenSCAD is oretty simple using instructions found on the projects
+website. Once it is installed, open it up and take a look at the basic
+interface:
+
+\importimage{opening-screen}{OpenSCAd interface}
+
+There are three areas we will be using in this view:
+
+\begin{itemize}
+\item{Editor - the left panel where you type in your code.}
+\item{Preview - the top right panel will be where your model is displayed.}
+\item{Messages - the bottom right panel is where error messages will be shown
+when processing your code.}
+\end{itemize}
+
+I will not try to show everything you need to know about the language {\it
+OpenSCAD} uses for describing a model. Instead, I will show fragments of code
+to give you a feel for what you need to write to design your model. The project
+website~\cite{blackr} has more details, as does the {\it OpenSCAD} {\it User
+Manual}~\cite{userman}.
+
+A Handy ``cheat-sheet'' is available here:~\cite{osccheat}.
+
+\subsection*{Organizing Your Code}
+
+\osc\ lets you write your code in one file or in multiple files. I like to
+split up a design into multiple files in order to keep them short and focused
+on one just part of the design. If you split things up you will need to use either
+an {\it include} or a {\it use} line specifying the file you want to access with
+the code in the present file. If you choose {\it include}, all that code in the
+second file will be processed as though it had been typed in the current file.
+On the other hand, using the {\it use} line only makes the names from the
+second file available in this one. The code in the second file will only be
+processed when those names are encountered in the current file.
+
+A typical setup is to create a single file with variables you want every piece
+of code to be able to use. You {\it include} that file like so:
+
+\begin{lstlisting}
+include <m th-magik-data.scad>
+\end{lstlisting}
+
+Another example might be in a file defining the wing for this design. That file
+needs to use ribs, which I define in another file. In my wing file I would
+add this line
+
+\begin{lstlisting}
+use <rib.scad>
+\end{lstlisting}
+
+You will see a lot of this notation in the full project code files on the
+project website.
+
+\subsection*{The Designng Process}
+
+Building a 3D model is a trial and error process. You type in or modify your
+code, then click on a command to process that code. You look at the preview
+window to see your model, and search the message area for hints about what went
+wrong.  Non-programmers will find this a bit frustrating, but this takes
+practice to master, so do not get discouraged. My advice is to always take
+small steps.  That limits the number of problems you face in getting things to
+work.
+
+The best way to learn anything new is to experiment. Beginning programmers are
+always searching the Internet for solutions they can copy into their problems,
+but the only thing you actually learn when copying and pasting stuff is how to
+copy and paste. You will learn far more by typing in code yourself - at least
+until you get more proficient at this. Reading the code gives you a chance to
+really think about what is going on. There is nothing wrong with looking at
+code written by others. Many times studying that code will teach you how to
+better write your own code. I will show you enough code in this design to give
+you a feel for how you do things using \osc. The actual code I generated for
+this design is on the project Github account~\cite{blackr}.
+
+I highly recommend building small files that generate one part of your overall
+design. Test that component until you are sure it looks like what you want.
+Then use that part in building other components. I like to work from small
+parts up to bigger assemblies, and that is how we will work through this
+design. Don't be afraid to fire up \osc\ and try things are you read this
+article. Of course, you should look at the project website to see all the code
+in greater detail.
+

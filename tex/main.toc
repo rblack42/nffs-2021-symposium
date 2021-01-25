@@ -21,11 +21,11 @@
 \contentsline {subsection}{\numberline {8.1}Blade Planform}{10}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Prop Spar}{10}{subsection.8.2}%
 \contentsline {section}{\numberline {9}Final Assembly}{10}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Mounting Components}{10}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.1}Mounting Components}{11}{subsection.9.1}%
 \contentsline {subsubsection}{\numberline {9.1.1}Paper Tubes}{11}{subsubsection.9.1.1}%
 \contentsline {subsubsection}{\numberline {9.1.2}Mounting Posts}{11}{subsubsection.9.1.2}%
-\contentsline {subsection}{\numberline {9.2}Mounting Tail Group}{11}{subsection.9.2}%
-\contentsline {subsubsection}{\numberline {9.2.1}Stabilizer}{11}{subsubsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2}Mounting Tail Group}{12}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Stabilizer}{12}{subsubsection.9.2.1}%
 \contentsline {subsubsection}{\numberline {9.2.2}Vertical Fin}{12}{subsubsection.9.2.2}%
 \contentsline {section}{\numberline {10}Flight Box}{12}{section.10}%
 \contentsline {subsection}{\numberline {10.1}Basic Construction}{12}{subsection.10.1}%

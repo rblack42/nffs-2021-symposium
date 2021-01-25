@@ -1,0 +1,214 @@
+\section*{\mbox{Constructive Solid Geometry}}
+
+OpenSCAD builds 3D models using a small set of primitive shapes, and a set of
+movement and combining operations to create more complex models.
+
+\subsection*{Primitive Shapes}
+
+Openscad supports both 2D and 3D shapes. We will be using some simple 2D
+shapes, like circles and rectangles, and more complex 2D shapes like a polygon.
+The 3D shapes we will use include spheres, cylinders, and cubes. All of these
+shapes can be scaled and moved around using simple movement operations.
+
+\subsection*{3D Primitives}
+For our first look at how you do things in OpenSCAD, here is a piece of code
+that will show the three basic 3D shapes:
+
+\includecode{demo/demo1.scad}
+
+Figure \ref{fig:demo1.png} shows the result.
+
+\importimage{demo1.png}{Demo 1}
+
+Each primitive shape is created at the origin. Cubes are created in the region
+where all three coordinates are positive. Spheres are created with the center
+of the sphere at the origin. The cylinder is centered along the {\bf Z} axis.
+If you look closely, you will see a small representation of the coordinate
+directions at the lower left of this image.
+
+We used a {\it translate} operation to move shapes aside so they do not
+overlap. The numbers inside square brackets control the distance we want to
+{\it translate} the following shape in the {\bf [x,y,z]} directions. This
+bracketed group of numbers is is called a {\it vector} which we will use a lot
+in our work.
+
+Notice how I indent code to show how things happen. In this example, we {\it
+translate} the following {\it cube} shape. The semicolon ends this command.
+Failing to put semicolons where they are needed is a common mistake when
+writing \osc\ code.
+
+These shapes do not look quite right. The problem is that \osc\  generates
+approximations to the rounded shapes, using a set of small polygons to build up
+the model. If we make these polygons smaller, things look better. All we need
+to do to fix this is change the code so it looks like this:
+
+\includecode{demo/demo2.scad}
+
+Figure \ref{fig:demo2.png} shows a much better result. The special variable
+{\it \$fn} controls the resolution of rounded objects. Bigger numbers make
+things look smoother but cost of longer times to generate images on the screen.
+
+
+\importimage{demo2.png}{Demo 2}
+
+Some shapes are smart and can form different versions of themselves:
+
+\includecode{demo/demo3.scad}
+
+Figure \ref{fig:demo3.png} shows a warped cube and cylinder. Spheres are not so
+smart, they stay spheres unless we warp them with external commands.
+
+\importimage{demo3.png}{Demo 3}
+
+
+\subsection*{2D primatives}
+
+We will use a few 2D shapes in this design, including the circle and square,
+which act much like their 3D counterparts. A more interesting 2D shape we will
+use is the {\it polygon}.
+
+\includecode{demo/polygon-demo1.scad}
+
+Here, we create two {\it variables} and set them equal to a list of vectors. 2D
+vectors have only 2 numbers, for the {\bf X} and {\bf Y} coordinate values. The
+first list defines a set of six points: three for the outer triangle, and three
+more for the inner triangle. The second list identifies {\it paths} meaning a
+continuous line that makes up a closed circuit, one for the outer triangle, and
+one for the inner triangle. The numbers refer to the position of vectors in the
+first list (programmers count starting at zero!) That final {\bf 10} parameter
+is not important here, it helps the operation work properly.
+
+I know this is a bit confusing, but we will not need much of this kind of code
+in our design work. Remember to try things and see what happens.
+
+\importimage{polygon-demo1.png}{Polygon Demo 1}
+
+Figure \ref{fig:polygon-demo1.png} shows a  2D shape with no thickness, although
+\osc\ gives it enough of a thickness to show up on the screen.
+
+We can use this 2D shape to create a 3D object by {\it extruding it} in the
+{\bf Z} direction:
+
+\includecode{demo/polygon-demo2.scad}
+
+Figure \ref{fig:polygon-demo2.png} definitely shows an interesting shape. We
+will use {\it extrusion} to make some parts that would be difficult to construct
+with just the basic primitive shapes.
+
+\importimage{polygon-demo2.png}{Polygon Demo 2}
+
+Obviously, we can form some interesting things with \osc. But things get
+even more interesting when we start combining multiple shapes to form more
+complex objects.
+
+\subsection*{Movement Operations}
+
+We saw the {\it translate} operation earlier. We can also {\it rotate} a shape.
+In this command we provide a vector of angles (in degrees) that we want to use
+to rotate the shape. Each number in the vector will be used to rotate the shape
+around the coordinate axis associated with that number. For instance {\bf
+rotate([90,0,0])} will rotate the shape around the {\bf X} axis ninety degrees.
+This operation uses the {\it right-hand} rule. If you want to rotate around the
+{bf X} axis, take your right hand and point the thumb in the direction of
+increasing {\bf X} in your coordinate system. Your fingers ``curl'' around that
+axis in a positive direction.
+
+Combining translations and rotations is done by writing both commands like
+this:
+
+\begin{lstlisting}
+  translate)[10,15,0])
+    rotate[90,0,0])
+      cube(1,1,5);
+\end{lstlisting}
+
+It helps to read this bottom up. We are creating a {\it cube} at the origin. We
+rotate it so it is aligned the way we want, then we translate that result to
+the position we have chosen. The semicolon at the end of this list ends the
+command. Notice that I indent so show what I want my code to do.
+
+Be warned that you can swap the {\it translate} and {\it rotate} commands, but
+you might not get the result you expect. Rotations are applied to the shape as
+it is positioned when the command is processed. If you rotate after
+translating, The shape will swing a long way!
+
+\subsection{Combining Operations}
+
+We form more complex objects by moving things around and combining them to form
+new objects. An example found in the {\it Wikipedia} article on CSG~\cite{csgwiki}
+demonstrates these operations.
+
+Suppose you wanted to build something that looks like Figure \ref{fig:csg-demo.png}.
+
+\importimage{csg-demo.png}{CSG Example Shape}
+
+We can form this shape using three cylinders, a sphere, and a cube. We use all
+three basic combining operations to construct the final shape.
+
+Here is the OpenSCAD code used to generate this shape:
+
+\includecode{demo/csg-demo.scad}
+
+There is a point to be made here. We can move two objects together so they
+touch, like a rib to a spar, but we do not really need to join them together in
+this design work. Visually, things will look right, but the two objects remain
+separate. Joining them together to make a combined part would be important if we
+were going to 3D print the object. Since we do not have he technology to print
+with balsa (yet), I will not worry about combining the components of our design
+to create a single airplane object.
+
+\subsubsection*{Modules}
+
+\osc\ lets you package a number of operations in a {\it module} that you can
+activate later, one or more times. In fact those primitive shapes were all
+predefined {\it modules}. The module can have parameters, which makes this a
+powerful way to manage shapes that are similar, but differ depending on the
+parameters you specify.  We saw that when we showed ``warped'' shapes earlier.
+We will create a basic rib module for this model, and use parameters to control
+the exact rib we want.
+
+All modules have a unique name in your code.  The name you choose should help
+you remember what the module is all about. In this example, we are interested
+in the final {\bf part} shape, which is constructed using the difference
+operation. This final module uses two supporting modules to build the part. You
+can write your code almost any way you like, but it is common to use
+spaces,indentations, and newlines to organize your code to make reading it
+easier.  Also, we surround a sequence of individual operations inside of curly
+braces when needed. I always indent any code inside of these braces.
+
+When you add parameters to a module, you define names for each one between the
+parentheses. Commas separate parameters if you have more than one. You can
+optionally provide a default value for each parameter by adding an equal sign
+followed by the default value you want. When you activate the module, you must
+provide actual values you want the module to use. You can just provide a
+sequence of numbers in the right order with commas separating them, or you can
+add the parameter name from the definition, an equal sign, then the new value
+you want. In this case, the order is not important, and you can leave off any
+parameters where you are happy with the default value.  The rules for all of
+this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will
+not go further in this discussion here.
+
+\subsubsection*{Building the Example Shape}
+
+To build this part, we first set up three cylinders, aligned along each
+coordinate axis. The {bf center} parameter, sets each cylinder up with the
+origin of the coordinate system at the exact center of the cylinder. Remember, The {\bf
+\$fn=32} parameter is really only needed to make the cylinders actually look
+round.
+
+Notice that all three of these cylinders occupy the same space. In the real
+world, we could not do that, but in our 3d modeling world this is common. We form
+the {\bf union} of these three overlapping cylinders to form one merged shape.
+
+The outer shell of our part is made up of the {\bf intersection} of a sphere
+and a cube. We size the cube shape so it trims off six sides of the sphere
+where holes will end up.  Finally, we use the {\bf difference} operator to
+carve out the inside of the part, using our three-cylinder shape.
+
+Successfully building 3D models involves visualizing what you want, then
+arranging simple shapes as needed and performing these three basic combining
+operations to generate the gadget you want! It takes practice! The more you
+experiment the better you will get!
+
+I encourage you to fire up \osc\ and type in this code. You will be better
+able to see how things work by doing this!
