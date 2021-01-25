@@ -1,0 +1,23 @@
+\documentclass[border=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc, intersections}
+
+\begin{document}
+\begin{tikzpicture}
+
+  \coordinate (o) at (0,0); % name the origin
+  \coordinate (s) at (9,2);
+  \coordinate (t) at (6,0);  % right center
+
+  % draw dihedral angle
+  \draw[thick] (o) -- (t) -- (s);
+  \draw[thin,->] (0,-0.5) node[below] {$c_l$} -- (0,3) node [above] {$z$};
+  \draw (6,0) node [below] {$y_t$};
+  \draw[thin,->] (6.25,0) -- (10,0) node [right] {$y$};
+  \draw[thin] (9.25,2) -- (9.75,2);
+  \draw[thin,<->] (9.5,0) -- node[right] {$z_t$} (9.5,2);
+  \draw[thin] (9,2.25) -- (9, 2.75);
+  \draw[thin,<->] (0,2.5) -- node[above] {$S$} (9,2.5);
+\end{tikzpicture}
+\end{document}
+

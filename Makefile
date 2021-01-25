@@ -36,3 +36,7 @@ pub:
 clean:
 	cd tex && \
 		rm -f *.aux *.bbc *.bbl *.log *.out *.sympy *.sout
+
+.PHONY: outline
+outline:
+	cd tex && pdflatex outline

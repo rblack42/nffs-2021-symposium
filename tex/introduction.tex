@@ -1,31 +1,41 @@
-Designing a new model airplane usually involves generating a plan of some sort,
-then constructing a prototype model from that plan. Of course you can use a
-pencil and paper to generate your plans, but if you think you might want to
-publish the plan, you will need to use some form of {\it Computer Aided Design}
-tool to produce your final plan. Unfortunately many popular CAD tools are
-complex, and often too expensive for the average modeler.
+\section{Introduction}
 
-Having recently retired from teaching Computer Science, and finally getting back into
-model building, I decided to design a new indoor model for the {\it Limited
-Pennyplane} class. As part of the design process, I wanted to see that airplane
-in 3D even before I built the first prototype. I decided to use a different
-form of CAD tool: OpenSCAD \cite{openscad}, a tool designed for computer
-programmers!
+In case you have not noticed, 3D printers are becoming as common as the X-Acto
+knife in home shops these days. They let you, or your kids, build some amazing
+parts, some of which find their way into our model airplanes. If you look
+around on {\it Thingiverse} \cite{thingy} you will discover that many of the
+files needed for 3D printing were generated using a neat open-source {\it
+Computer Aided Design} tool called \osc. As a retired Computer
+Science Professor, I have used this tool for a number of projects, and I
+decided to see how it could help with my current indoor model building.
 
-While that description may discourage some folks from reading further, rest
-assured that this particular tool is simple enough that non-programmers can
-certainly master it. In fact, some teachers have successfully managed to get
-elementary school kids to use OpenSCAD to design simple 3D models.
+\osc is not your usual CAD tool. It is a programmers tool, meaning that you
+write fairly simple program code describing your model, then generate a visual
+representation of your design you can see on your computer screen. Once you are
+happy with the design, \osc can export your design in file formats that could be
+post-processed as part of the path to a 3D printer. Unfortunately, we probably are
+not going to see competition ready 3D printed indoor models anytime soon, so we will
+not explore 3D printing in this article.
 
-OpenSCAD is an open-source (meaning free) 3D modeling program, available on all
-major platforms. It is commonly used by folks designing parts to be printed on
-3D printers. What makes OpenScad different is how you generate the design.
-Instead of using your mouse to drag things around on the screen, you describe
-your model in a simple programming language. Formally, OpenSCAD uses something
-called {\it Constructive Solid Geometry} to construct your model, then gives
-you a visual interface you can use to examine your 3D model in detail.
+Do not be frightened off by having to write program code for \osc. Like
+anything new, it can be a bit intimidating for beginners, but I have worked on
+making the code needed simple enough that even non-technical
+folks should be able to generate useful results.
 
-I will only show example code from the project so you can get a feel for the
-design process. You are encouraged to explore the project website for much
-better documentation and complete source code. \cite{blackr}.
+In this article I will show how I developed a new design for a {\it Limited
+Pennyplane} model using \osc. I will explain the basic concepts used in \osc
+to set up a 3D design. This is not a complete tutorial, but covers enough to
+help you understand the rest of the article, Next, we will see how to visualize
+your design and examine it in detail as a full 3D model. Finally, we will
+analyze the design to calculate some useful properties, like estimated weight
+and center of gravity locations. I hope to show you that even non-technical
+folks can use this tool to help design new models, and explore new design ideas
+along the way.
+
+All of the code and more detailed documentation on this project is available on
+the project website at {\bf https://github.com/rblack42/math-magik}
+\cite{blackr}. I will try to limit computer programming jargon, and present
+concepts in more familiar modeling terms.
+
+
 

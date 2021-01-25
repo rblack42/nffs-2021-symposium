@@ -1,16 +1,16 @@
-\section*{\mbox{Constructive Solid Geometry}}
+\section{Constructive Solid Geometry}
 
 OpenSCAD builds 3D models using a small set of primitive shapes, and a set of
 movement and combining operations to create more complex models.
 
-\subsection*{Primitive Shapes}
+\subsection{Primitive Shapes}
 
 Openscad supports both 2D and 3D shapes. We will be using some simple 2D
 shapes, like circles and rectangles, and more complex 2D shapes like a polygon.
 The 3D shapes we will use include spheres, cylinders, and cubes. All of these
 shapes can be scaled and moved around using simple movement operations.
 
-\subsection*{3D Primitives}
+\subsection{3D Primitives}
 For our first look at how you do things in OpenSCAD, here is a piece of code
 that will show the three basic 3D shapes:
 
@@ -61,7 +61,7 @@ smart, they stay spheres unless we warp them with external commands.
 \importimage{demo3.png}{Demo 3}
 
 
-\subsection*{2D primatives}
+\subsection{2D primatives}
 
 We will use a few 2D shapes in this design, including the circle and square,
 which act much like their 3D counterparts. A more interesting 2D shape we will
@@ -101,7 +101,7 @@ Obviously, we can form some interesting things with \osc. But things get
 even more interesting when we start combining multiple shapes to form more
 complex objects.
 
-\subsection*{Movement Operations}
+\subsection{Movement Operations}
 
 We saw the {\it translate} operation earlier. We can also {\it rotate} a shape.
 In this command we provide a vector of angles (in degrees) that we want to use
@@ -157,7 +157,7 @@ were going to 3D print the object. Since we do not have he technology to print
 with balsa (yet), I will not worry about combining the components of our design
 to create a single airplane object.
 
-\subsubsection*{Modules}
+\subsubsection{Modules}
 
 \osc\ lets you package a number of operations in a {\it module} that you can
 activate later, one or more times. In fact those primitive shapes were all
@@ -188,7 +188,7 @@ parameters where you are happy with the default value.  The rules for all of
 this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will
 not go further in this discussion here.
 
-\subsubsection*{Building the Example Shape}
+\subsubsection{Building the Example Shape}
 
 To build this part, we first set up three cylinders, aligned along each
 coordinate axis. The {bf center} parameter, sets each cylinder up with the

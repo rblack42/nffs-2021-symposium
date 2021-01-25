@@ -1,4 +1,4 @@
-\section*{Building the Wing}
+\section{Building the Wing}
 
 Let's start off this design by building the wing.
 
@@ -10,13 +10,13 @@ inches. Based on a survey of indoor models, we will use a flat center section
 with wing tips angled upward, providing the needed dihedral for stability. Here
 is our starting geometry:
 
-\importtikzfigure{wing-geometry}{Basic Wing Layout}
+\importtikzfigure{wing-dihedral}{Basic Wing Dihedral Layout}
 
 
 The constraint in this figure is {\bf max\_span}. We are free to choose the
 other dimensions as long as we respect this limit.
 
-\subsection*{Circular Arc Airfoils}
+\subsection{Circular Arc Airfoils}
 
 Like many indoor model airplanes, we will use a simple circular arc airfoil.
 The airfoil is typically specified as an arc with a maximum height that is some
@@ -24,7 +24,7 @@ percentage of the wing chord.  So, given the chord, and thickness as a
 percentage value, we need to figure out the radius of the arc given these two
 values.
 
-\subsubsection*{Arc Geometry}
+\subsubsection{Arc Geometry}
 
 Since we start off with the chord and thickness specified as a percentage, we
 need to get rid of the percentage:
@@ -112,7 +112,85 @@ Warning! If there are any parents reading this, do not let your kids know about
 SymPy.  On the other hand, if you cannot solve your kids math homework, you
 might try {\it SymPy} on the sly! YMMV!
 
-\subsection{Ribs}
+\subsection{Wing Thickness function}
+
+In order to meet one of the design goals for this project, we need to come up
+with a formula that will give us the height of the wing at any point . Since we
+are uging a circular arc airfoil, these equations get reasonably easy to figure
+out. (If you have trouble following this math, ask your kid for help, or your
+grandkid!)
+
+\importtikzfigure{wing-thickness}{Wing Thickness Geometry}
+
+From figure \ref{wing-thickness} we can set up a few more equations.
+
+
+Suppose we are interested in the height of our airfoil at any point along the
+{$x$} axis. From basic geometry, we come up with this equation
+
+\begin{equation}
+  h = r cos{\beta} - ( r - t )
+\end{equation}
+
+We figured out the value for {$r$} in our earlier math work.
+
+
+To figure out {$\beta$} we need to use the $\arcsin$ function.
+
+\begin{equation}
+  x = C / 2 - r \sin(beta)
+\end{equation}
+
+Rearranging things we get:
+
+\begin{equation}
+  \beta = \sin^{-1} ( \frac{x - C/2}{r} )
+\end{equation}
+
+That equation will give us the height of the wing at any point, depending on
+the camber, the local chord, and the value of {$x$} we use. The remaining
+problem is determining the chord at any point along the span of the wing.
+
+Figure \ref{wing-geometry} shows the general layout of the wing and stab. (We
+can also use this for the fin, with minor tweaks.)
+
+\importtikzfigure{wing-geometry}{General Wing Geometry}
+
+The wing will have a nice constant airfoil across the inner portion. At the dihedral break, the height will taper off until it is flat at th tip. I will assume we can use a constantly decreasing camber across the tip, running from the inner airfoil value to zero at the tip. The functin we need to calculate the chord and camber at any point along the span liiks like this:
+
+The general equation of or a circle centered at point {$c$} is:
+
+\begin{equation}
+  {(x - c_x)}^2 + {(y - c_y)}^2 = r^2
+\end{equation}
+
+This is simple enough to solve for {$y$}, but I did let {\sympy} chew on it just to check:
+
+\begin{equation}
+  y = c_y - \sqrt{r^2 - (x - c_x)^{2}}
+\end{equation}
+
+These equations are being used in an OpenSCAD function when we need to figure out how high the wing is at any point.
+
+
+
+%\newcommand{\threepartdef}[6] {
+	%\left\{
+		  %\begin{array}{lll}
+			  %#1 & \mbox{if } #2 \\
+			  %#3 & \mbox{if } #4 \\
+			  %#5 & \mbox{if } #6
+		  %\end{array}
+	  %\right.
+%}
+
+%/begin{equation}
+%$\mu(n)$ = \threepartdef
+%{1}      {n=1}
+%{0}      {a^2 ,|, n \mbox{ for some } a > 1}
+%{$(-1)^r$} {$n$ \mbox{ has } r \mbox{ distinct prime factors}}
+%\end{equation}
+
 
 Now that we have our equations figured out, we can proceed with building a
 module that will generate a single rib. We will write the rib module so it
@@ -155,7 +233,7 @@ Here is an example rib:
 
 \importimage{basic-rib.png}{Basic rib}
 
-\subsection*{Wing Center Section}
+\subsection{Wing Center Section}
 
 The leading and trailing edges of this model will be simple 1/16" balsa sticks.
 These are easy to model in \osc\ as really skinny cubes. The center section
@@ -183,7 +261,7 @@ to mate at this joint.
 Being able to zoom in on details like this is handy for making sure your design
 is clean.
 
-\subsection*{Tip Design}
+\subsection{Tip Design}
 
 The tip is another rectangular section, except I decided to round off the
 leading edge corner. There are no ribs in this section, except for a flat rib
