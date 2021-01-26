@@ -35,7 +35,7 @@ pub:
 .PHONY: clean
 clean:
 	cd tex && \
-		rm -f *.aux *.bbc *.bbl *.log *.out *.sympy *.sout
+		rm -f *.aux *.bbc *.bbl *.fls *.log *.out *.sympy *.sout *.fdb_latexmk
 
 .PHONY: outline
 outline:

@@ -1,4 +1,0 @@
-import sympy
-import sympytex
-sympytex.openout('outline')
-sympytex.endofdoc()

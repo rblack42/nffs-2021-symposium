@@ -11,19 +11,27 @@
 \maketitle
 
 \input{introduction}
-\input{openscad}
-\input{geometry}
-\input{lpp-design-constraints}
-\input{wing}
-\input{stab-fin}
-\input{motor-stick}
-\input{tail-boom}
-\input{propeller}
-\input{final-assembly}
-\input{flight-box}
-\input{stl-files}
+
+% osc overview
+\input{osc-overview/osc-contents}
+
+% lpp-design
+\input{lpp-design/lpp-contents}
+
+% transport
+\input{transport/transport-contents}
+
+% design analysys
+\input{analysis/analysis-contents}
+
+% author boigraphy
 \input{biography}
+
 \bibliographystyle{abbrvnat}
+
+% only include to generate outline
 \tableofcontents
+\listoffigures
+% references
 \bibliography{../assets/references.bib}
 \end{document}

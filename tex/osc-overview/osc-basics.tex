@@ -1,0 +1,81 @@
+\subsection{\osc\ Basics}
+
+We will be writing some program code in this design work. The code is not that
+complicated, at least for most things we will cover. However, if you are not a
+programmer, there are some details you need to be aware of.
+
+First, you will be creating and managing a bunch of code files, which are just
+text files processed by one of our tools. I keep everything about a project in
+a directory (OK, folder for you PC folks) and create subdirectories as needed
+to keep things organized. Al of our tools will open up files on our system and
+process them to produce something we need. I have watched far too many
+beginners get confused by not keeping things organized and separate from other
+work you do on your system!
+
+\osc\ lets you write your code in one file or in multiple files. All \osc\ code
+files have names ending with {\bf .scad}. P\PY\ foles all end with {\bf .py}.
+You can see many such files by exploring the INternet. All of my code is kept
+on a public server used by millions od developers, called GitHub. 3D projects
+complete with the files needed to produce prints of those designs can be fon on
+Thiniverse. You can learn alot y reading code you find on these sites.
+
+I like to split up a design into multiple files in order to keep them short and
+focused on one just part of the design. If you split things up you will need to
+use either an {\it include} or a {\it use} line specifying the file you want to
+access with the code in the present file. If you choose {\it include}, all that
+code in the second file will be processed as though it had been typed in the
+current file.  On the other hand, using the {\it use} line only makes the names
+from the second file available in this one. The code in the second file will
+only be processed when those names are encountered in the current file.
+
+A typical setup is to create a single file with dimensions you want every piece
+of code to be able to use. You {\it include} that file like so:
+
+\begin{lstlisting}
+include <math-magik-data.scad>
+\end{lstlisting}
+
+\subsubsection{Modules}
+
+Programmers like to group code related to one simple thing in a package \osc\
+calls a {\it module}. I use modules to organize my design, creating them with
+names like {\bf wing} or {\bf {rib} so it is obvious what they are all about.
+If I create a {\bf rib} module in one file, and my {wing} module in another file,
+I can {\it use} the rib module multiple times by adding this line at the top of the {\bf wing.scad} file:
+
+\begin{lstlisting}
+use <rib.scad>
+\end{lstlisting}
+
+You will see a lot of this notation in the full project code files on the
+project website.
+
+\subsection{The Designing Process}
+
+Building a 3D model is a trial and error process. You type in or modify your
+code, then click on a command to process that code. You look at the preview
+window to see your model, and search the message area for hints about what went
+wrong.  Non-programmers will find this a bit frustrating, but this takes
+practice to master, so do not get discouraged. My advice is to always take
+small steps.  That limits the number of problems you face in getting things to
+work.
+
+The best way to learn anything new is to experiment. Beginning programmers are
+always searching the Internet for solutions they can copy into their problems,
+but the only thing you actually learn when copying and pasting stuff is how to
+copy and paste. You will learn far more by typing in code yourself - at least
+until you get more proficient at this. Reading the code gives you a chance to
+really think about what is going on. There is nothing wrong with looking at
+code written by others. Many times studying that code will teach you how to
+better write your own code. I will show you enough code in this design to give
+you a feel for how you do things using \osc. The actual code I generated for
+this design is on the project Github account~\cite{blackr}.
+
+I highly recommend building small files that generate one part of your overall
+design. Test that component until you are sure it looks like what you want.
+Then use that part in building other components. I like to work from small
+parts up to bigger assemblies, and that is how we will work through this
+design. Don't be afraid to fire up \osc\ and try things are you read this
+article. Of course, you should look at the project website to see all the code
+in greater detail.
+

@@ -9,28 +9,35 @@ Computer Aided Design} tool called \osc. As a retired Computer
 Science Professor, I have used this tool for a number of projects, and I
 decided to see how it could help with my current indoor model building.
 
-\osc is not your usual CAD tool. It is a programmers tool, meaning that you
+\osc\ is not your usual CAD tool. It is a programmers tool, meaning that you
 write fairly simple program code describing your model, then generate a visual
 representation of your design you can see on your computer screen. Once you are
-happy with the design, \osc can export your design in file formats that could be
-post-processed as part of the path to a 3D printer. Unfortunately, we probably are
-not going to see competition ready 3D printed indoor models anytime soon, so we will
-not explore 3D printing in this article.
+happy with the design, \osc can export your design in file formats that could
+be post-processed as part of the path to a 3D printer. Unfortunately, we
+probably are not going to see competition ready 3D printed indoor models
+anytime soon, so we will not explore 3D printing in this article.
 
 Do not be frightened off by having to write program code for \osc. Like
 anything new, it can be a bit intimidating for beginners, but I have worked on
-making the code needed simple enough that even non-technical
-folks should be able to generate useful results.
+making the code needed simple enough that even non-technical folks should be
+able to generate useful results.
 
-In this article I will show how I developed a new design for a {\it Limited
-Pennyplane} model using \osc. I will explain the basic concepts used in \osc
-to set up a 3D design. This is not a complete tutorial, but covers enough to
-help you understand the rest of the article, Next, we will see how to visualize
-your design and examine it in detail as a full 3D model. Finally, we will
-analyze the design to calculate some useful properties, like estimated weight
-and center of gravity locations. I hope to show you that even non-technical
-folks can use this tool to help design new models, and explore new design ideas
-along the way.
+In this article I will show how I developed a new design for a \LPP\ model
+using \osc. In {\it Part 1} I will explain the basic concepts used in \osc\ to
+set up a 3D design. This is not a complete tutorial, but covers enough to help
+you understand the rest of the article, In {\it Part 2} we will work through
+the design on my \LPP\ model. You will see some code here, but only enough to
+explain how I generated the design. Finally, {\it Part 3} will show some
+analysis techniques I used to get a weight and balance assessment of my design.
+This is always a good thing to do before going flying! In this section, I will
+show a bit of Python code. Python is another programming language, commonly
+used in introductory programming courses. Kids in elementary school have
+managed to get going in programming using Python.
+
+I have tried to keep the computer jargon to a minimum. Instead, I have created
+a way to generate \osc\ code that uses terms more familiar to model builders.
+Hopefully, this article will encourage you to try these techniques when you
+design your own model.
 
 All of the code and more detailed documentation on this project is available on
 the project website at {\bf https://github.com/rblack42/math-magik}
