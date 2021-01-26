@@ -1,18 +1,18 @@
-\osc\ builds 3D models using a small set of primitive shapes, and a set of
-movement and combining operations to create more complex models.
+\subsection{Constructive Solid Geometry}
 
-\subsection{Primitive Shapes}
+That is quite a term. Basically it means we construct bigger shapes using a
+small set of primitive shapes, and a set of movement and combining operations.
 
 The 3D shapes we will use include spheres, cylinders, and cubes. All of these
-shapes can be scaled and moved around using simple movement operations.
-Openscad supports both 2D and 3D shapes. We will also be using some simple 2D
-shapes, like circles and rectangles, and more complex 2D shapes like a polygon.
-2D shapes have no thickness, but are useful when creating complicated 3D
-shapes.
+shapes can be scaled and moved around using simple movement operations.  We
+will also use some simple 2D shapes, like circles and rectangles, We will also
+use a more complex 2D shape called a polygon.  2D shapes have no thickness, but
+are useful when creating more complicated 3D shapes.
 
-\subsection{3D Primitives}
+\subsubsection{3D Primitive Shapes}
+
 For our first look at how you do things in \osc, here is a piece of code
-that will show the three basic 3D shapes:
+that shows the three basic 3D shapes:
 
 \includecode{demo/demo1.scad}
 
@@ -30,9 +30,12 @@ We used a {\it translate} operation to move shapes aside so they do not
 overlap. The numbers inside square brackets control the distance we want to
 {\it translate} the following shape in the {\bf [x,y,z]} directions. This
 bracketed group of numbers is is called a {\it vector} which we will use a lot
-in our work.
+in our work. The numbers we use for distances are not really important, but we
+will assume they represent inches. This will only be important when we
+generate accurate templates or drawings for for a model.
 
-Notice how I indent code to show how things happen. In this example, we {\it
+Notice how I indent code to show how things happen. This is strictly my style.
+\osc\ does not care about how you style your code. In this example, we {\it
 translate} the following {\it cube} shape. The semicolon ends this command.
 Failing to put semicolons where they are needed is a common mistake when
 writing \osc\ code.
@@ -47,7 +50,7 @@ to do to fix this is change the code so it looks like this:
 Figure \ref{fig:demo2.png} shows a much better result. The special variable
 {\it \$fn} controls the resolution of rounded objects. Bigger numbers make
 things look smoother but cost of longer times to generate images on the screen.
-
+You will see this setting in code examples later.
 
 \importimage{demo2.png}{Demo 2}
 
@@ -61,7 +64,7 @@ smart, they stay spheres unless we warp them with external commands.
 \importimage{demo3.png}{Demo 3}
 
 
-\subsection{2D primatives}
+\subsubsection{2D primitive Shapes}
 
 We will use a few 2D shapes in this design, including the circle and square,
 which act much like their 3D counterparts. A more interesting 2D shape we will
@@ -101,7 +104,7 @@ Obviously, we can form some interesting things with \osc. But things get
 even more interesting when we start combining multiple shapes to form more
 complex objects.
 
-\subsection{Movement Operations}
+\subsubsection{Movement Operations}
 
 We saw the {\it translate} operation earlier. We can also {\it rotate} a shape.
 In this command we provide a vector of angles (in degrees) that we want to use
@@ -132,30 +135,53 @@ you might not get the result you expect. Rotations are applied to the shape as
 it is positioned when the command is processed. If you rotate after
 translating, The shape will swing a long way!
 
-\subsection{Combining Operations}
+\subsubsection{Convenience Operations}
 
-We form more complex objects by moving things around and combining them to form
-new objects. An example found in the {\it Wikipedia} article on CSG~\cite{csgwiki}
-demonstrates these operations.
+That code looks messy to non-programmers, so I set up a system that uses
+terminology more familiar with modelers. Basically, I packed up normal \osc\
+operations into a set of operations with names you might find easier to use.
 
-Suppose you wanted to build something that looks like Figure \ref{fig:csg-demo.png}.
+These operations are designed so you are visualizing things from the pilot's
+perspective.  Here are a few of those terms:
 
-\importimage{csg-demo.png}{CSG Example Shape}
+\begin{itemize}
+  \item{{\bf slide\_right(y)} - move to the right}
+  \item{{\bf slide\_left(y)} - move to the left}
+  \item{{\bf slide\_forward(x)} - move forward - toward the nose}
+  \item{{\bf slide\_backward(x)} - move backward, toward the tail}
+  \item{{\bf slide\_up(z)} - move upward}
+  \item{{\bf slide\_down(z)} - slide downward}
+\end{itemize}
 
-We can form this shape using three cylinders, a sphere, and a cube. We use all
-three basic combining operations to construct the final shape.
+Other operations are provided, their function should be easy to figure out as
+an airplane geek! I will be using these in the actual design work later.
 
-Here is the OpenSCAD code used to generate this shape:
+\subsubsection{Combining Operations}
 
-\includecode{demo/csg-demo.scad}
+In 3D modeling, we often want to combine shapes to create more complex shapes.
+That is important if we want to 3D print something. However, for most of our
+work in this design, we will not need to actually fuse two parts together, just
+position them correctly. However, there is one important combining operation we
+will use a lot. The {\bf difference} operation actually takes two shapes that
+overlap, and slices off the part where they intersect.
 
-There is a point to be made here. We can move two objects together so they
-touch, like a rib to a spar, but we do not really need to join them together in
-this design work. Visually, things will look right, but the two objects remain
-separate. Joining them together to make a combined part would be important if we
-were going to 3D print the object. Since we do not have he technology to print
-with balsa (yet), I will not worry about combining the components of our design
-to create a single airplane object.
+\includecode{scad/spar-trim.scad}
+
+This example shows some nice features of \osc. The first line calculates the
+angle we need to use to taper  the spar to half its height. The {\bf
+difference} operation takes the first shape inside those curly braces, in this
+case our basic spar, and uses the next shape, the trimming block properly
+aligned, to slice away where they intersect. That funny sharp character in front
+of the second cube makes \osc\ show you the trimming block for debugging.
+Normally, the trimming block is invisable, and the intersection evaporates.
+Like sanding blocks on steroids!
+
+There are other combining operations we could use, but they will not show up
+much in our design work. The {\bf union} operation combines two shapes into
+one, and the {\bf intersection} operation takes two overlapping shapes an
+produces only that area where they intersect. We will use that last one in our
+analysis work in the last section.
+
 
 \subsubsection{Modules}
 
@@ -163,23 +189,14 @@ to create a single airplane object.
 activate later, one or more times. In fact those primitive shapes were all
 predefined {\it modules}. The module can have parameters, which makes this a
 powerful way to manage shapes that are similar, but differ depending on the
-parameters you specify.  We saw that when we showed ``warped'' shapes earlier.
-We will create a basic rib module for this model, and use parameters to control
+parameters you specify.  We will create a basic rib module for this model, and use parameters to control
 the exact rib we want.
 
-All modules have a unique name in your code.  The name you choose should help
-you remember what the module is all about. In this example, we are interested
-in the final {\bf part} shape, which is constructed using the difference
-operation. This final module uses two supporting modules to build the part. You
-can write your code almost any way you like, but it is common to use
-spaces,indentations, and newlines to organize your code to make reading it
-easier.  Also, we surround a sequence of individual operations inside of curly
-braces when needed. I always indent any code inside of these braces.
-
-When you add parameters to a module, you define names for each one between the
-parentheses. Commas separate parameters if you have more than one. You can
+All modules nneed to have a unique name in your code.  The name you choose should help
+you remember what the module is all about. When you add parameters to a module, you define names for each parameter as well. These are surrounded by
+parentheses, with ommas separating them if you have more than one. You can
 optionally provide a default value for each parameter by adding an equal sign
-followed by the default value you want. When you activate the module, you must
+followed by the default value you want. When you activate the module, you will
 provide actual values you want the module to use. You can just provide a
 sequence of numbers in the right order with commas separating them, or you can
 add the parameter name from the definition, an equal sign, then the new value
@@ -188,27 +205,10 @@ parameters where you are happy with the default value.  The rules for all of
 this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will
 not go further in this discussion here.
 
-\subsubsection{Building the Example Shape}
-
-To build this part, we first set up three cylinders, aligned along each
-coordinate axis. The {bf center} parameter, sets each cylinder up with the
-origin of the coordinate system at the exact center of the cylinder. Remember, The {\bf
-\$fn=32} parameter is really only needed to make the cylinders actually look
-round.
-
-Notice that all three of these cylinders occupy the same space. In the real
-world, we could not do that, but in our 3d modeling world this is common. We form
-the {\bf union} of these three overlapping cylinders to form one merged shape.
-
-The outer shell of our part is made up of the {\bf intersection} of a sphere
-and a cube. We size the cube shape so it trims off six sides of the sphere
-where holes will end up.  Finally, we use the {\bf difference} operator to
-carve out the inside of the part, using our three-cylinder shape.
-
 Successfully building 3D models involves visualizing what you want, then
 arranging simple shapes as needed and performing these three basic combining
 operations to generate the gadget you want! It takes practice! The more you
-experiment the better you will get!
+experiment the better you will get! I encourage you to fire up \osc\ and type
+in this code. You will be better able to see how things work by doing this!
 
-I encourage you to fire up \osc\ and type in this code. You will be better
-able to see how things work by doing this!
+We now have enough background to work through the \LPP\ design!
