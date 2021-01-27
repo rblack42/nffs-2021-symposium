@@ -2,19 +2,18 @@
 
 Let's start off this design by building the wing.
 
-\subsection*{Basic Wing Layout}
+\subsection*{Basic Wing Design}
 
-The class rules specify two constraints on the design of the wing. The
-projected span is limited to 18 inches, nd the maximum chord is limited to five
-inches. Based on a survey of indoor models, we will use a flat center section
-with wing tips angled upward, providing the needed dihedral for stability. Here
-is our starting geometry:
+The class rules specify two constraints on the design of the wing. The projected
+span is limited to 18 inches, and the maximum chord is limited to five inches.
+Based on a survey of indoor models, we will use a flat center section with wing
+tips angled upward, providing the needed dihedral for stability. We can define
+either the tip angle we want or the elevation of the tip. In either case, we can
+calculate the other item in our code. 
+
+Here is our starting geometry:
 
 \importtikzfigure{wing-dihedral}{Basic Wing Dihedral Layout}
-
-
-The constraint in this figure is {\bf max\_span}. We are free to choose the
-other dimensions as long as we respect this limit.
 
 \subsection{Circular Arc Airfoils}
 
@@ -51,8 +50,7 @@ From this figure, we can write two equations:
 \end{equation}
 
 \begin{equation}
-  {r - r \cos(\theta) = t}
-\end{equation}
+  {r - r \cos(\theta) \end{equation}
 
 The unknown variables are now:
 
@@ -62,19 +60,10 @@ The unknown variables are now:
 \end{itemize}
 
 While we could drag out our old math books from high school, I would rather let
-my computer do the hard work. Time for {\it SymPy}~\cite{sympy}!
+my computer do the hard work. I did this mat work using a cool \PY\ package
+called {\it SymPy}~\cite{sympy}! Details on this are at the project website.
 
-\subsubsection{SymPy}
-
-{\it SymPy} is a Python program that knows how to do a lot of math. It manipulates
-{\it symbols}, not numbers, and that is a lot of what you should have learned in
-a trigonometry classes.
-
-Here is how we get {\it SymPy} to solve our equations:
-
-\includecode{python/circular-arc.py}
-
-Running this code, we find our solution:
+Here are the solutons:
 
 \begin{sympysilent}
 r,c,t,theta = \
@@ -89,28 +78,9 @@ sol = sympy.solve([eq1,eq2],[r,theta])
 \sympy{sol}
 \end{equation}
 
-{\it SymPy} actually displays those solutions like this:
-
-\begin{lstlisting}
-[(
-  c**2/(8*t) + t/2,
-  2*atan((c - 2*t)/(c + 2*t))
-)]
-\end{lstlisting}
-
-It can also produce an output I can include in my documentation that looks much
-nicer, which is what you see above.
-
-I asked {\it SymPy} to solve the two equations for the two {\it symbols} {\bf
-r} and {$ \theta $}. The two solutions are shown. The first one is the {\bf
-radius} we need to our code.  We do not really need to worry about the angle
-part.
-
-We will use these result to set up an \osc\ module that will build our ribs.
-
-Warning! If there are any parents reading this, do not let your kids know about
-SymPy.  On the other hand, if you cannot solve your kids math homework, you
-might try {\it SymPy} on the sly! YMMV!
+The first solution is the {\bf radius} we need to our code. The second one gives
+the half-angle swept by the arc for our rib. We do not really need to worry
+about that angle. 
 
 \subsection{Wing Thickness function}
 

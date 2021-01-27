@@ -1,3 +1,5 @@
+$fn=100;
+
 cube();
 translate([3,0,0])
   sphere($fn=100);

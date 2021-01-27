@@ -1,4 +1,4 @@
-\subsection{\osc\ Basics}
+\subsubsection{\osc\ Basics}
 
 We will be writing some program code in this design work. The code is not that
 complicated, at least for most things we will cover. However, if you are not a
@@ -6,18 +6,18 @@ programmer, there are some details you need to be aware of.
 
 First, you will be creating and managing a bunch of code files, which are just
 text files processed by one of our tools. I keep everything about a project in
-a directory (OK, folder for you PC folks) and create subdirectories as needed
-to keep things organized. Al of our tools will open up files on our system and
+a directory (OK, folder for you PC folks) and create sub directories as needed
+to keep things organized. All of our tools will open up files on our system and
 process them to produce something we need. I have watched far too many
 beginners get confused by not keeping things organized and separate from other
 work you do on your system!
 
 \osc\ lets you write your code in one file or in multiple files. All \osc\ code
-files have names ending with {\bf .scad}. P\PY\ foles all end with {\bf .py}.
-You can see many such files by exploring the INternet. All of my code is kept
-on a public server used by millions od developers, called GitHub. 3D projects
-complete with the files needed to produce prints of those designs can be fon on
-Thiniverse. You can learn alot y reading code you find on these sites.
+files have names ending with {\bf .scad}. \PY\ files all end with {\bf .py}.
+You can see many such files by exploring the Internet. All of my code is kept
+on a public server used by millions of developers, called GitHub. 3D projects
+complete with the files needed to produce prints of those designs can be found on
+Thingiverse \cite{thingy}. You can learn a lot by reading code you find on these sites.
 
 I like to split up a design into multiple files in order to keep them short and
 focused on one just part of the design. If you split things up you will need to
@@ -35,22 +35,7 @@ of code to be able to use. You {\it include} that file like so:
 include <math-magik-data.scad>
 \end{lstlisting}
 
-\subsubsection{Modules}
-
-Programmers like to group code related to one simple thing in a package \osc\
-calls a {\it module}. I use modules to organize my design, creating them with
-names like {\bf wing} or {\bf {rib} so it is obvious what they are all about.
-If I create a {\bf rib} module in one file, and my {wing} module in another file,
-I can {\it use} the rib module multiple times by adding this line at the top of the {\bf wing.scad} file:
-
-\begin{lstlisting}
-use <rib.scad>
-\end{lstlisting}
-
-You will see a lot of this notation in the full project code files on the
-project website.
-
-\subsection{The Designing Process}
+\subsubsection{The Design Process}
 
 Building a 3D model is a trial and error process. You type in or modify your
 code, then click on a command to process that code. You look at the preview
@@ -78,4 +63,6 @@ parts up to bigger assemblies, and that is how we will work through this
 design. Don't be afraid to fire up \osc\ and try things are you read this
 article. Of course, you should look at the project website to see all the code
 in greater detail.
+
+Now we can start work on our design!
 

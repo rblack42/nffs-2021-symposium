@@ -3,16 +3,12 @@
 The {\it Limited Pennyplane} class rules define a few constraints on dimensions
 for our model. Specifically we must honor these limits:
 
-\begin{itemize}
-\item{{\bf max\_wing\_span} -  18''}
-\item{{\bf max\_wing\_chord} -  5''}
-\item{{\bf max\_stab\_span} - 12''}
-\item{{\bf max\_spab\_chord} - 4''}
-\item{{\bf max\_length} - Max Prop to Tail length = 20''}
-\item{{\bf max\_prop\_diameter} - 12''}
-\end{itemize}
+Here is the start of my data file, where the important class dimensions are
+defined:
 
-What this means is that the model must fit in a box that measures {\bf
+includecode{scad\math-magik-data.scad}
+
+What thiese constraints mean is that the model must fit in a box that measures {\bf
 max\_wing\_span} wide by {\bf max\_length} long. There is no limit on how
 tall this box can be.
 

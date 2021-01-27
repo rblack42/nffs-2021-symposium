@@ -36,7 +36,8 @@ generate accurate templates or drawings for for a model.
 
 Notice how I indent code to show how things happen. This is strictly my style.
 \osc\ does not care about how you style your code. In this example, we {\it
-translate} the following {\it cube} shape. The semicolon ends this command.
+translate} the following {\it sphere} shape, then translate the following {\it
+cylinder} shape as well. The semicolon ends this command.
 Failing to put semicolons where they are needed is a common mistake when
 writing \osc\ code.
 
@@ -49,8 +50,7 @@ to do to fix this is change the code so it looks like this:
 
 Figure \ref{fig:demo2.png} shows a much better result. The special variable
 {\it \$fn} controls the resolution of rounded objects. Bigger numbers make
-things look smoother but cost of longer times to generate images on the screen.
-You will see this setting in code examples later.
+things look smoother but it will take a bit longer to generate images on the screen.
 
 \importimage{demo2.png}{Demo 2}
 
@@ -78,8 +78,8 @@ first list defines a set of six points: three for the outer triangle, and three
 more for the inner triangle. The second list identifies {\it paths} meaning a
 continuous line that makes up a closed circuit, one for the outer triangle, and
 one for the inner triangle. The numbers refer to the position of vectors in the
-first list (programmers count starting at zero!) That final {\bf 10} parameter
-is not important here, it helps the operation work properly.
+first list (programmers count starting at zero!) That final {\bf complexity=10}
+parameter is not important here, it helps the operation work properly.
 
 I know this is a bit confusing, but we will not need much of this kind of code
 in our design work. Remember to try things and see what happens.
@@ -89,8 +89,11 @@ in our design work. Remember to try things and see what happens.
 Figure \ref{fig:polygon-demo1.png} shows a  2D shape with no thickness, although
 \osc\ gives it enough of a thickness to show up on the screen.
 
+subsubsecton{Extrusions}
+
 We can use this 2D shape to create a 3D object by {\it extruding it} in the
-{\bf Z} direction:
+{\bf Z} direction. This operation ``pull'' the 2D shape upward to produce a 3D
+shape!
 
 \includecode{demo/polygon-demo2.scad}
 
@@ -100,9 +103,7 @@ with just the basic primitive shapes.
 
 \importimage{polygon-demo2.png}{Polygon Demo 2}
 
-Obviously, we can form some interesting things with \osc. But things get
-even more interesting when we start combining multiple shapes to form more
-complex objects.
+Obviously, we can form some interesting things with \osc. 
 
 \subsubsection{Movement Operations}
 
@@ -153,8 +154,8 @@ perspective.  Here are a few of those terms:
   \item{{\bf slide\_down(z)} - slide downward}
 \end{itemize}
 
-Other operations are provided, their function should be easy to figure out as
-an airplane geek! I will be using these in the actual design work later.
+Other operations are provided, their function should be easy to figure out for
+airplane geeks! I will be using these in the actual design work later.
 
 \subsubsection{Combining Operations}
 
@@ -167,13 +168,18 @@ overlap, and slices off the part where they intersect.
 
 \includecode{scad/spar-trim.scad}
 
+Figure \ref{trim-block.png}shows what this looks like.
+
+\importimage{trim-block.png}{Spar Trimming block}
+
+
 This example shows some nice features of \osc. The first line calculates the
 angle we need to use to taper  the spar to half its height. The {\bf
 difference} operation takes the first shape inside those curly braces, in this
 case our basic spar, and uses the next shape, the trimming block properly
 aligned, to slice away where they intersect. That funny sharp character in front
 of the second cube makes \osc\ show you the trimming block for debugging.
-Normally, the trimming block is invisable, and the intersection evaporates.
+Normally, the trimming block is invisible, and the intersection evaporates.
 Like sanding blocks on steroids!
 
 There are other combining operations we could use, but they will not show up
@@ -182,19 +188,19 @@ one, and the {\bf intersection} operation takes two overlapping shapes an
 produces only that area where they intersect. We will use that last one in our
 analysis work in the last section.
 
-
 \subsubsection{Modules}
 
 \osc\ lets you package a number of operations in a {\it module} that you can
 activate later, one or more times. In fact those primitive shapes were all
 predefined {\it modules}. The module can have parameters, which makes this a
 powerful way to manage shapes that are similar, but differ depending on the
-parameters you specify.  We will create a basic rib module for this model, and use parameters to control
-the exact rib we want.
+parameters you specify.  We will create a basic rib module for this model, and
+use parameters to control the exact rib we want.
 
-All modules nneed to have a unique name in your code.  The name you choose should help
-you remember what the module is all about. When you add parameters to a module, you define names for each parameter as well. These are surrounded by
-parentheses, with ommas separating them if you have more than one. You can
+All modules need to have a unique name in your code.  The name you choose should
+help you remember what the module is all about. When you add parameters to a
+module, you define names for each parameter as well. These are surrounded by
+parentheses, with commas separating them if you have more than one. You can
 optionally provide a default value for each parameter by adding an equal sign
 followed by the default value you want. When you activate the module, you will
 provide actual values you want the module to use. You can just provide a
@@ -202,8 +208,8 @@ sequence of numbers in the right order with commas separating them, or you can
 add the parameter name from the definition, an equal sign, then the new value
 you want. In this case, the order is not important, and you can leave off any
 parameters where you are happy with the default value.  The rules for all of
-this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will
-not go further in this discussion here.
+this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will not
+go further in this discussion here.
 
 Successfully building 3D models involves visualizing what you want, then
 arranging simple shapes as needed and performing these three basic combining
@@ -211,4 +217,3 @@ operations to generate the gadget you want! It takes practice! The more you
 experiment the better you will get! I encourage you to fire up \osc\ and type
 in this code. You will be better able to see how things work by doing this!
 
-We now have enough background to work through the \LPP\ design!

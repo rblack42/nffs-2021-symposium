@@ -1,99 +1,43 @@
-\section{The Design Process}
+\section{Bottom-up Design}
 
-Before we get into \osc, let's discuss how we will proceed with this design.
+We could work through our design in a ``top-down'' manner, breaking up the model
+into major assemblies, then breaking down those assemblies into individual parts
+that need to be manufactured to complete the real model. However, using \osc\ we
+cannot see much until we have parts  to build with. For that reason, we will
+begin with simple parts, then assemble them by properly positioning things to
+create assemblies. In the final step, we will put everything together so we can
+see our completed model! This all should make sense to an indoor model builder.
+You cut out the pieces you need, glue things together to form wings and
+stabilizers for instance, then assemble the final model using something like
+paper tubes perhaps.
 
-Since this is a new design, we will begin with the rules defining the
-constraints for this competition class. We will derive some basic parameters
-that will ensure our model conforms to the rules, something I want my design process
-to verify. We will proceed in a ``top-down'' manner, breaking up the model into
-major assemblies, then breaking down those assemblies into individual parts
-that need to be manufactured to complete the real model.
+We will start off by writing down the constraints we must obey to compete in the
+\LPP\ class. I create a data file for this information, then add various other
+dimensions as I make design decisions. I can {\it include} this data file in any
+other file that needs this data.
 
-In using conventional CAD tools, you can start off with by creating a simple
-top-level drawing for your design and work out the details as you go. However,
-we cannot do that with \osc. Instead, we will start off by looking at the
-general layout of the model using some figures created using some of my
-professional authoring tools, which are not covered in this article. We will work through the design using these figures until we see what parts we need to create to build the full model.
-
-As soon as we have enough information in hand to define the basic parts, we will begin building our CAD models. This will involve writing some simple code describing individual parts. Along the way, we will be
-defining other parameters like material thickness and overall parts dimensions.
-As much as possible dimensions will be derived from other data parameters
-defined in the design. For example, the rules constrain the maximum chord for the wing. Once i know how thick my leading and trailing edges will be, I can calculate the chord of the rib i will place between those two parts. The constraints drive the process, as much as possible. We will document each design decision we make in the form of parameters, or math equations that are driven by other parameters in our design.
+As soon as we have enough information in hand to define the basic parts, we will
+begin building our CAD models. This will involve writing some simple code
+describing individual parts. Along the way, we will be defining other parameters
+like material thickness and overall parts dimensions.  As much as possible
+dimensions will be derived from other data parameters defined in the design. For
+example, the rules constrain the maximum chord for the wing. Once i know how
+thick my leading and trailing edges will be, I can calculate the chord of the
+rib I will place between those two parts. The constraints drive the process, as
+much as possible. We will document each design decision we make in the form of
+parameters, or math equations that are driven by other parameters in our design.
 
 \subsection{Parametric designs}
 
-Settnig up the design in this way lets us adapt this design to create other designs. We might need ot change the overall wingspan of the model, to meet another class. We should be able to modify our constraining parameters, and let \osc generate a new model for the new rules. This is far better than simply scaling a PDF file so the winspan is different.
+Setting up the design in this way lets us adapt this design to create other
+designs. We might need to change the overall wingspan of the model, to compete
+in another class. We should be able to modify our constraining parameters, and
+let \osc generate a new model for the new rules. This is far better than simply
+scaling a PDF file so the wingspan is different.
 
-A further benefit of this procss is that you no longer confront plans theat leave out critical dmensions. I do not like trying to figure out how to build some part by taking my digital calipers and measure int a plan, or worse, a  PDF printout, then tryingot figure out the real dimnsions1 \osc forces you to completely define your model.
-
-\subsection{Coding the design}
-
-Programmers break down long complcated lists of instructions into more manageable parts. You are probably familiar with the concept of a trigomemetric {\bf sin| function from your geometry class. Someone created the logic that is used inside of that function and packed it in what we will be calling a {\it module|. when you need that function, you will refer to it by name, and the computer will activate the logic inside of that module ot produce the result you want.  We will package all the code for creating a single part in such a [\it module}, then package the assembly of a number of pars into a single component in another [\it module} as well. The top-level {module} will bring everything together to create the entire airplane.
-
-I will need some "sketches" showing the basic layout of the model. Reather than present pencil sketches, I will sow layouts n the form of figures produced using some of my authoring tools. Those are not covered here, but are shown to define some of the details we need to know before actually proceeding witht he design.
-
-Once we know what we want to build, we need to identify the major parts and assemblies we need to constrct to create a finished model. We will use \osc to creare those parts, and assemble them, just like we would if we were building a real model. Finally, we will analyze
-Designing a new model airplane usually starts with some sketches of some sort,
-so you can start to see how your design will look.  You probably then
-progress to generating a plan of some sort. You might then refine your sketches by
-generating a more detailed plan using some form of
-computer tool. Finally, with a plan in hand, we proceed to constructing a prototype model to see how well it flies.
-
-Sure, you could simply cut balsa, and glue things together just based on what
-looks "right", but in the  end you need those plans, especially if your design
-seems to fly well!
-
-It seems that we need plans for most projects. Good plans are pretty detailed,
-others barely show you anything but the general layout of the airplane. I have
-quite a collection of PDF files containing plans for indoor models I have
-considering building.  However, since I want to build my own designs, I need to
-generate my own plans.
-
-\subsection{Generating Plans}
-
-Of course you can use a pencil and paper to generate your plans, but if you
-think you might want to publish your plan, you will need to use some form of
-{\it Computer Aided Design} tool to produce your final plan. Unfortunately many
-popular CAD tools are complex, and often too expensive for the average modeler.
-
-Most CAD tools depend on using the mouse to maneuver components around. These
-tools do allow you to specify dimensions exactly, but often, details are left
-to the program to figure out as you "snap" parts together. The learning curve
-for these programs is very steep, but once you get the hang of things, they
-become much easier for you to use.
-
-So why look at anything else?
-
-\subsection{Parametric Design}
-
-There is another way to create your plans. In this technique, you define some
-basic parameters, like maximum wing span and chord, then use those dimensions
-to calculate the dimensions of other parts.  Once you decide on a wing outline
-design, you calculate the sizes of each rib using those design parameters. If
-you need to design a similar model with different parameters, the recalculation
-of The local c
-
-Having recently retired from teaching Computer Science, and
-finally getting back into model building, I decided to design a new indoor
-model for the {\it Limited Pennyplane} class. As part of the design process, I
-wanted to see that airplane in 3D even before I built the first prototype. I
-decided to use a different form of CAD tool: OpenSCAD \cite{openscad}, a tool
-designed for computer programmers!
-
-While that description may discourage some folks from reading further, rest
-assured that this particular tool is simple enough that non-programmers can
-certainly master it. In fact, some teachers have successfully managed to get
-elementary school kids to use OpenSCAD to design simple 3D models.
-
-OpenSCAD is an open-source (meaning free) 3D modeling program, available on all
-major platforms. It is commonly used by folks designing parts to be printed on
-3D printers. What makes OpenScad different is how you generate the design.
-Instead of using your mouse to drag things around on the screen, you describe
-your model in a simple programming language. Formally, OpenSCAD uses something
-called {\it Constructive Solid Geometry} to construct your model, then gives
-you a visual interface you can use to examine your 3D model in detail.
-
-I will only show example code from the project so you can get a feel for the
-design process. You are encouraged to explore the project website for much
-better documentation and complete source code. \cite{blackr}.
+A further benefit of this process is that you no longer confront plans that
+leave out critical dimensions. I do not like trying to figure out how to build
+some part by taking my digital calipers and measure things on a plan, or worse,
+a  PDF printout, then trying to figure out the real dimensions! \osc forces you
+to completely define your model.
 
