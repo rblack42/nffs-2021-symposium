@@ -22,7 +22,7 @@ tex:
 	cd tex && \
 	pdflatex main &&  \
 	python main.sympy && \
-	bibtex main.tex && \
+	bibtex main && \
 	pdflatex main && \
 	pdflatex main
 
