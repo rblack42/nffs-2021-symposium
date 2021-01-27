@@ -13,13 +13,13 @@ calculate the other item in our code.
 
 \importtikzfigure{wing-geometry}{General Wing Geometry}
 
-Figure \ref{wing-geometry} shows the general layout of the wing and stab. (We
+Figure \ref{fig:wing-geometry} shows the general layout of the wing and stab. (We
 can also use this for the fin, with minor tweaks.)
 
 
 The tip uses another simple circular arc for the leading edge.
 
-Figure \ref{wing-dihedral} shows the dihedral configuration.
+Figure \ref{fig:wing-dihedral} shows the dihedral configuration.
 
 \importtikzfigure{wing-dihedral}{Basic Wing Dihedral Layout}
 
@@ -68,7 +68,7 @@ The unknown variables are now:
 
 While we could drag out our old math books from high school, I would rather let
 my computer do the hard work. I did this math work using a cool \PY\ package
-called {\it SymPy}~\cite{sympy}! This program manipilates math equations as
+called {\it SymPy}~\cite{sympy}! This program manipulates math equations as
 symbols, like you used back in high school. Details on this are at the project
 website.
 
@@ -100,7 +100,7 @@ out.
 
 \importtikzfigure{wing-thickness}{Wing Thickness Geometry}
 
-From figure \ref{wing-thickness} we can set up a few more equations.
+From figure \ref{fig:wing-thickness} we can set up a few more equations.
 
 
 Suppose we are interested in the height of our airfoil at any point along the
@@ -197,7 +197,7 @@ the wing holds five equally spaced ribs. This code is pretty simple, so in the
 interest of keeping this article reasonable short, I will not show it here. All
 the code is placed in a simple {\bf wing-center} module. Basically al it does
 is position the leading and trailing edge spars, then creates the five ribs,
-translating each into proper position. Figure \ref {wing-center} shows the
+translating each into proper position. Figure \ref{fig:wing-center.png} shows the
 result.
 
 \importimage{wing-center.png}{Wing Center Section}
@@ -228,13 +228,13 @@ tapered spar, we just add another trimming block.  Figure
 
 \importimage{wing-tip.png}{Wing Tip}
 
-All we need to do now, is generate the oppisite tip. We could duplicate all of
-the code we just set up, bu there is an easier way. \osc\ has an interesing
+All we need to do now, is generate the opposite tip. We could duplicate all of
+the code we just set up, bu there is an easier way. \osc\ has an interesting
 operation called {\bf mirror} that will create a mirror image of something. I
 used this feature to create the opposite tip.
 
 All that remains is to add the dihedral. This is dome by rotating the completed
-tip by the correct angle. If you specified the tip keight, yu need to calculate
+tip by the correct angle. If you specified the tip height, yu need to calculate
 that angle using the {\bf atan2} function we saw earlier.
 
 

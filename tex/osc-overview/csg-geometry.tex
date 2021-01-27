@@ -1,6 +1,4 @@
-\subsection{Constructive Solid Geometry}
-
-That is quite a term. Basically it means we construct bigger shapes using a
+What does that even mean?  Basically it means we construct bigger shapes using
 small set of primitive shapes, and a set of movement and combining operations.
 
 The 3D shapes we will use include spheres, cylinders, and cubes. All of these
@@ -30,9 +28,9 @@ We used a {\it translate} operation to move shapes aside so they do not
 overlap. The numbers inside square brackets control the distance we want to
 {\it translate} the following shape in the {\bf [x,y,z]} directions. This
 bracketed group of numbers is is called a {\it vector} which we will use a lot
-in our work. The numbers we use for distances are not really important, but we
-will assume they represent inches. This will only be important when we
-generate accurate templates or drawings for for a model.
+in our work. The numbers \osc\ uses internally are in millimeters, but that is
+only important when we print things. I prefer to pretend those numbers are in our
+more familiar inches, and scale things when we generate printed output.
 
 Notice how I indent code to show how things happen. This is strictly my style.
 \osc\ does not care about how you style your code. In this example, we {\it
@@ -103,7 +101,7 @@ with just the basic primitive shapes.
 
 \importimage{polygon-demo2.png}{Polygon Demo 2}
 
-Obviously, we can form some interesting things with \osc. 
+Obviously, we can form some interesting things with \osc.
 
 \subsubsection{Movement Operations}
 
