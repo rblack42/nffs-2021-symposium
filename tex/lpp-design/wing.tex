@@ -31,8 +31,8 @@ percentage of the wing chord.  So, given the chord, and thickness as a
 percentage value, we need to figure out the radius of the arc given these two
 values.
 
-Since we start off with the chord and thickness specified as a percentage of the chord, we
-need to get rid of the percentage:
+Since we start off with the chord and thickness specified as a percentage of the
+chord, we need to get rid of the percentage:
 
 Given:
 
@@ -214,13 +214,17 @@ The tip module uses a simple supporting module that generates the curved section
 This will be a balsa stick formed over a template.
 
 \begin{lstlisting}
-wing_right tip(span=3, chord=5, radius=2);
+wing_right tip(
+    span=3, 
+    chord=5, 
+    radius=2
+);
 \end{lstlisting}
 
 There is one interesting issue in the tip design. Many builders taper the
 leading and trailing edges so the tip is lighter. In this design, I decided to
 taper just the leading and trailing edge tip spars and make the circular arc
-and the tip thinner square stock. The puzzle is how to do this in OpenSCAD.
+and the tip thinner square stock. The puzzle is how to do this in \osc.
 
 We saw how to taper a spare in our introduction to \osc. To get a double
 tapered spar, we just add another trimming block.  Figure
@@ -233,15 +237,15 @@ the code we just set up, bu there is an easier way. \osc\ has an interesting
 operation called {\bf mirror} that will create a mirror image of something. I
 used this feature to create the opposite tip.
 
-All that remains is to add the dihedral. This is dome by rotating the completed
-tip by the correct angle. If you specified the tip height, yu need to calculate
+All that remains is to add the dihedral. This is done by rotating the completed
+tip by the correct angle. If you specified the tip height, you need to calculate
 that angle using the {\bf atan2} function we saw earlier.
 
 
 \subsubsection{Tip Templates}
 
 I kept this design simple on purpose. The only templates needed will be used
-for forming the curved segments at the tips. Fortunately, \osc\ can help
+for forming the ribs and the curved segments at the tips. Fortunately, \osc\ can help
 generate printed templates we can use! Here is the code used.
 
 \includecode{demo/printer-test.scad}
@@ -250,7 +254,7 @@ The {\it scale} operation is used to scale the shape so it prints properly.
 Basically, we set up code that generates a tip section, then flatten it back
 into a 2D drawing. The operation that does this is called a {\it projection}.
 Once that is set up, we will ask \osc\ to export this model as an SVG graphics
-file which can be printed. I use my Chrome browser to do the printing on my
+file which can then be printed. I use my Chrome browser to do the printing on my
 home printer.  Figure \ref{fig:tip-template.png} shows what the template looks
 like in Chrome.
 
