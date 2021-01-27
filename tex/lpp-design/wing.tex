@@ -1,21 +1,31 @@
-\section{Building the Wing}
+\subsection{Building the Wing}
 
 Let's start off this design by building the wing.
 
-\subsection*{Basic Wing Design}
+\subsubsection*{Basic Wing Design}
 
 The class rules specify two constraints on the design of the wing. The projected
 span is limited to 18 inches, and the maximum chord is limited to five inches.
-Based on a survey of indoor models, we will use a flat center section with wing
+Based on a survey of indoor models, we will use a flat, rectangular center section with wing
 tips angled upward, providing the needed dihedral for stability. We can define
 either the tip angle we want or the elevation of the tip. In either case, we can
-calculate the other item in our code. 
+calculate the other item in our code.
 
-Here is our starting geometry:
+\importtikzfigure{wing-geometry}{General Wing Geometry}
+
+Figure \ref{wing-geometry} shows the general layout of the wing and stab. (We
+can also use this for the fin, with minor tweaks.)
+
+
+The tip uses another simple circular arc for the leading edge.
+
+Figure{wing-dihedral} shows the dihedral configuration.
 
 \importtikzfigure{wing-dihedral}{Basic Wing Dihedral Layout}
 
-\subsection{Circular Arc Airfoils}
+\importtikzfigure{wing-geometry}{General Wing Geometry}a
+
+\subsubsection{Circular Arc Airfoils}
 
 Like many indoor model airplanes, we will use a simple circular arc airfoil.
 The airfoil is typically specified as an arc with a maximum height that is some
@@ -23,9 +33,7 @@ percentage of the wing chord.  So, given the chord, and thickness as a
 percentage value, we need to figure out the radius of the arc given these two
 values.
 
-\subsubsection{Arc Geometry}
-
-Since we start off with the chord and thickness specified as a percentage, we
+Since we start off with the chord and thickness specified as a percentage of the chord, we
 need to get rid of the percentage:
 
 Given:
@@ -50,7 +58,8 @@ From this figure, we can write two equations:
 \end{equation}
 
 \begin{equation}
-  {r - r \cos(\theta) \end{equation}
+  t = r - r \cos(\theta)
+\end{equation}
 
 The unknown variables are now:
 
@@ -60,10 +69,12 @@ The unknown variables are now:
 \end{itemize}
 
 While we could drag out our old math books from high school, I would rather let
-my computer do the hard work. I did this mat work using a cool \PY\ package
-called {\it SymPy}~\cite{sympy}! Details on this are at the project website.
+my computer do the hard work. I did this math work using a cool \PY\ package
+called {\it SymPy}~\cite{sympy}! This program manipilates math equations as
+symbols, like you used back in high school. Details on this are at the project
+website.
 
-Here are the solutons:
+Here are the solutions:
 
 \begin{sympysilent}
 r,c,t,theta = \
@@ -80,15 +91,14 @@ sol = sympy.solve([eq1,eq2],[r,theta])
 
 The first solution is the {\bf radius} we need to our code. The second one gives
 the half-angle swept by the arc for our rib. We do not really need to worry
-about that angle. 
+about that angle.
 
-\subsection{Wing Thickness function}
+\subsubsection{Wing Thickness function}
 
 In order to meet one of the design goals for this project, we need to come up
 with a formula that will give us the height of the wing at any point . Since we
-are uging a circular arc airfoil, these equations get reasonably easy to figure
-out. (If you have trouble following this math, ask your kid for help, or your
-grandkid!)
+are using a circular arc airfoil, these equations get reasonably easy to figure
+out.
 
 \importtikzfigure{wing-thickness}{Wing Thickness Geometry}
 
@@ -121,67 +131,45 @@ That equation will give us the height of the wing at any point, depending on
 the camber, the local chord, and the value of {$x$} we use. The remaining
 problem is determining the chord at any point along the span of the wing.
 
-Figure \ref{wing-geometry} shows the general layout of the wing and stab. (We
-can also use this for the fin, with minor tweaks.)
+The wing will have a nice constant airfoil across the inner portion. At the
+dihedral break, the height will taper off until it is flat at the tip. I will
+assume we can use a constantly decreasing camber across the tip, running from
+the center section airfoil to a flat tip. We need to come up with an equation
+to calculate the chord
 
-\importtikzfigure{wing-geometry}{General Wing Geometry}
-
-The wing will have a nice constant airfoil across the inner portion. At the dihedral break, the height will taper off until it is flat at th tip. I will assume we can use a constantly decreasing camber across the tip, running from the inner airfoil value to zero at the tip. The functin we need to calculate the chord and camber at any point along the span liiks like this:
-
-The general equation of or a circle centered at point {$c$} is:
+The tip is a circular arc. From that we can use the general equation of or a
+circle centered at point {$c$} is:
 
 \begin{equation}
   {(x - c_x)}^2 + {(y - c_y)}^2 = r^2
 \end{equation}
-
-This is simple enough to solve for {$y$}, but I did let {\it sympy} chew on it just to check:
+ bit of rearranging gives us this result:
 
 \begin{equation}
   y = c_y - \sqrt{r^2 - (x - c_x)^{2}}
 \end{equation}
 
-These equations are being used in an OpenSCAD function when we need to figure out how high the wing is at any point.
+Using the height equation, and the chord equation, we have everything we need
+to figure out the height of the wing surface at any point. We will need  that
+later.
 
-
-
-%\newcommand{\threepartdef}[6] {
-	%\left\{
-		  %\begin{array}{lll}
-			  %#1 & \mbox{if } #2 \\
-			  %#3 & \mbox{if } #4 \\
-			  %#5 & \mbox{if } #6
-		  %\end{array}
-	  %\right.
-%}
-
-%/begin{equation}
-%$\mu(n)$ = \threepartdef
-%{1}      {n=1}
-%{0}      {a^2 ,|, n \mbox{ for some } a > 1}
-%{$(-1)^r$} {$n$ \mbox{ has } r \mbox{ distinct prime factors}}
-%\end{equation}
-
+\subsubsection{The Rib Module}
 
 Now that we have our equations figured out, we can proceed with building a
 module that will generate a single rib. We will write the rib module so it
-takes four parameters:
+takes four parameters to make using it for different chords easy,
 
 \begin{lstlisting}
 module rib(
     chord = 5,
     camber = 6,
-    height = 1/16,
-    thickness = 1/32) {
+    rib_height = 1/16,
+    rib_thickness = 1/32) {
   ...
 }
 \end{lstlisting}
 
-\osc\ supports {\it global variables}. This means you
-can define a variable at the top of a file,  give it a value, then use
-that variable anywhere in the code. Unfortunately, that makes it hard to take
-your module to another program, since it depends on those variables. Writing
-your modules so they depend only on data they receive through parameters makes
-for better code.
+I omitted the details here.
 
 The {\bf rib} module's job will be to generate a single rib sitting on the {bf X} axis
 with it's nose at the origin, and standing upright.
@@ -203,35 +191,24 @@ Here is an example rib:
 
 \importimage{basic-rib.png}{Basic rib}
 
-\subsection{Wing Center Section}
+\subsubsection{Wing Center Section}
 
 The leading and trailing edges of this model will be simple 1/16" balsa sticks.
-These are easy to model in \osc\ as really skinny cubes. The center section
-of the wing holds five equally spaced ribs. This code is pretty simple, so I
-packaged it in a simple module:
-
-Here is this code:
-
-\includecode{scad/wing_center.scad}
-
-
-This code uses a loop to place the ribs. Details on all of these language
-constructs can be found in the {\it Users Manual} \ref{userman}
+These are easy to model in \osc\ as really skinny cubes. The center section of
+the wing holds five equally spaced ribs. This code is pretty simple, so in the
+interest of keeping this article reasonable short, I will not show it here. All
+the code is placed in a simple {\bf wing-center} module. Basically al it does
+is position the leading and trailing edge spars, then creates the five ribs,
+translating each into proper position. Figure \ref {wing-center} shows the
+result.
 
 Figure \ref{fig:wing-center.png} shows the wing center section.
 
 \importimage{wing-center.png}{Wing Center Section}
 
-There is one detail in this image worth examining closer. Figure
-\ref{fig:wing-tip} shows the joint at the outer rib. This allows the tip section
-to mate at this joint.
+I adjusted the position of the outer ribs so they are square with the spars.
 
-\importimage{tip-joint.png}{Tip Joint Detail}
-
-Being able to zoom in on details like this is handy for making sure your design
-is clean.
-
-\subsection{Tip Design}
+\subsubsection{Tip Design}
 
 The tip is another rectangular section, except I decided to round off the
 leading edge corner. There are no ribs in this section, except for a flat rib
@@ -240,11 +217,10 @@ at the tip. Here is the geometry I decided on:
 \importtikzfigure{wing-tip}{Tip Design}
 
 The tip module uses a simple supporting module that generates the curved section.
-This will be a balsa stick formed over a template.  By writing the tip as a
-module, I will be able to reuse this design on the stabilizer and the fin!
+This will be a balsa stick formed over a template.
 
 \begin{lstlisting}
-tip_section(span=3, chord=5, radius=2);
+wing_right tip(span=3, chord=5, radius=2);
 \end{lstlisting}
 
 There is one interesting issue in the tip design. Many builders taper the
@@ -252,52 +228,47 @@ leading and trailing edges so the tip is lighter. In this design, I decided to
 taper just the leading and trailing edge tip spars and make the circular arc
 and the tip thinner square stock. The puzzle is how to do this in OpenSCAD.
 
-It turns out to be easy. Once again, we use the {\it difference} operation. We
-generate a square strip the size we want, then set up a block longer than the
-strip and place it at a slight angle so we end up chopping off the unwanted
-material leaving a tapered strip. It is easy enough to do this twice to get the
-result we are after. This is sanding with no mess!
-
-Figure \ref{fig:trim-block.png} shows the basic idea.
-
-\importimage{trim-block.png}{Trimming Block}
-
-
-Figure \ref{fig:wing-tip.png} shows the final tip section.
+We saw how to taper a spare in our introduction to \osc. To get a double
+tapered spar, we just add another trimming block.  Figure
+\ref{fig:wing-tip.png} shows the final tip section.
 
 \importimage{wing-tip.png}{Wing Tip}
 
-\subsection{Tip Templates}
+All we need to do now, is generate the oppisite tip. We could duplicate all of
+the code we just set up, bu there is an easier way. \osc\ has an interesing
+operation called {\bf mirror} that will create a mirror image of something. I
+used this feature to create the opposite tip.
 
-I kept this design simple. The only templates needed will be used for forming
-the curved segments at the tips. Fortunately, \osc\ can help generate
-printed templates we can use! Here is the code used.
+All that remains is to add the dihedral. This is dome by rotating the completed
+tip by the correct angle. If you specified the tip keight, yu need to calculate
+that angle using the {\bf atan2} function we saw earlier.
+
+
+\subsubsection{Tip Templates}
+
+I kept this design simple on purpose. The only templates needed will be used
+for forming the curved segments at the tips. Fortunately, \osc\ can help
+generate printed templates we can use! Here is the code used.
 
 \includecode{demo/printer-test.scad}
 
-The {\it scale} operation is what sized the shape so it prints accurately. Most
-of the rest of the code just made adjustments so the template printed properly
-on my printer. These might need adjusting for different printers.
-
+The {\it scale} operation is used to scale the shape so it prints properly.
 Basically, we set up code that generates a tip section, then flatten it back
 into a 2D drawing. The operation that does this is called a {\it projection}.
-Once that is set up, we will ask \osc\ to export this model as an SVG file
-which can be printed. I use my Chrome browser to do the printing on my home
-printer.  Figure \ref{fig:tip-template.png} shows what the template looks like
-in Chrome.
+Once that is set up, we will ask \osc\ to export this model as an SVG graphics
+file which can be printed. I use my Chrome browser to do the printing on my
+home printer.  Figure \ref{fig:tip-template.png} shows what the template looks
+like in Chrome.
 
 \importimage{tip-template}{Tip Template}
 
-\subsection{Wing Assembly}
+\subsubsection{Wing Assembly}
 
 All we need to to to complete the wing is generate the center section, then
-generate the wing tips and rotate them into place at the proper dihedral angle.
-The only thing tricky here is generating the two tip sections.
-
-Since the tip is flat, I can generate two of then, and rotate one 180 degrees
-so it will fit on the opposite side. I do need to do some minor translating to
-make sure things line up, but by now, this is getting easy!
+generate the two wing tips and rotate them into place at the proper dihedral angle.
 
 Figure{fig:wing.png}{Final Wing} shows the completed wing.
 
 \importimage{wing.png}{Wing Assembly}
+
+

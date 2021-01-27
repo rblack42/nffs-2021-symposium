@@ -1,4 +1,4 @@
-\section{Propeller}
+\subsection{Propeller}
 
 Now for an interesting component - the propeller. This is not just a flat part,
 it has an interesting shape, and figuring out how to model this thing took some
@@ -14,19 +14,6 @@ matches our desired blade thickness and slide the extruded blade into that cylin
 The {\it intersection} of these two shapes will leave us with a curved blade.
 Neat!
 
-The code for this got fairly involved, so I will refer you to the project
-website for details.
-
-\begin{lstlisting}
-module prop_blade(
-	span =
-  ) {
-...
-}
-\end{lstlisting}
-
-\subsection{Blade Planform}
-
 The shape of the blade seems to be a matter of taste. Many builders design
 blades that will provide for a flair so that the prop will have a higher pitch
 when the plane is launched with full torque from the motor. Moving the prop
@@ -38,13 +25,12 @@ general layout.
 
 \importskinnytikzfigure{prop-blade}{Prop Blade Layout}
 
-\subsection{Prop Spar}
-
 The prop spar is a tapered cylinder, something easy to generate with the {\it
 cylinder} shape. Parameters are provided so the size of the spar can be
 adjusted.
-
-Here is what I ended up producing, after rotating it back upright.
+i
+Figure \ref{prop-blade.png} shows the final blade produced. Since the code is
+again a bot complicated, I will refer you t the project website.
 
 \importimage{prop-blade.png}{Prop Blade}
 

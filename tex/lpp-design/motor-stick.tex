@@ -24,13 +24,13 @@ module motor_stick(thickness=1/8) {
 \end{lstlisting}
 
 The final shape is centered along the {\bf X axis} with the bottom of the stick
-lying on that axis.
+lying on that axis to make final assembly of the model easier.
 
 \importimage{motor-stick.png}{motor-stick.png}
 
-I added one new feature to this module. You can ask \osc\ to color shapes using
-the {\it color} command. For this motor stick, I just added this code to the
-module:
+I added one new feature to this module, which will not show up in the printed
+article. You can ask \osc\ to color shapes using the {\it color} command. For
+this motor stick, I just added this code to the module:
 
 \begin{lstlisting}
 
@@ -40,6 +40,7 @@ module motor_stick*thickness=1/8) {
       translate([0,0,thickness/2])
   ...
 }
+\end{lstlisting}
 
 I also added a single line at the top of the file:
 

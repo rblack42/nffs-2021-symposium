@@ -1,28 +1,29 @@
 \babel@toc {english}{}
-\contentsline {figure}{\numberline {1}{\ignorespaces OpenSCAd interface}}{2}{figure.1}% 
-\contentsline {figure}{\numberline {2}{\ignorespaces Demo 1}}{3}{figure.2}% 
-\contentsline {figure}{\numberline {3}{\ignorespaces Demo 2}}{4}{figure.3}% 
-\contentsline {figure}{\numberline {4}{\ignorespaces Demo 3}}{4}{figure.4}% 
-\contentsline {figure}{\numberline {5}{\ignorespaces Polygon Demo 1}}{5}{figure.5}% 
-\contentsline {figure}{\numberline {6}{\ignorespaces Polygon Demo 2}}{5}{figure.6}% 
-\contentsline {figure}{\numberline {7}{\ignorespaces LPP Design Constraints}}{11}{figure.7}% 
-\contentsline {figure}{\numberline {8}{\ignorespaces Basic Wing Dihedral Layout}}{11}{figure.8}% 
-\contentsline {figure}{\numberline {9}{\ignorespaces Circular arc Geometry}}{12}{figure.9}% 
-\contentsline {figure}{\numberline {10}{\ignorespaces Wing Thickness Geometry}}{13}{figure.10}% 
-\contentsline {figure}{\numberline {11}{\ignorespaces General Wing Geometry}}{13}{figure.11}% 
-\contentsline {figure}{\numberline {12}{\ignorespaces Basic rib}}{14}{figure.12}% 
-\contentsline {figure}{\numberline {13}{\ignorespaces Wing Center Section}}{15}{figure.13}% 
-\contentsline {figure}{\numberline {14}{\ignorespaces Tip Joint Detail}}{15}{figure.14}% 
-\contentsline {figure}{\numberline {15}{\ignorespaces Tip Design}}{16}{figure.15}% 
-\contentsline {figure}{\numberline {16}{\ignorespaces Trimming Block}}{16}{figure.16}% 
-\contentsline {figure}{\numberline {17}{\ignorespaces Wing Tip}}{16}{figure.17}% 
-\contentsline {figure}{\numberline {18}{\ignorespaces Tip Template}}{17}{figure.18}% 
-\contentsline {figure}{\numberline {19}{\ignorespaces Wing Assembly}}{17}{figure.19}% 
-\contentsline {figure}{\numberline {20}{\ignorespaces Stabilizer}}{17}{figure.20}% 
-\contentsline {figure}{\numberline {21}{\ignorespaces Vertical Fin}}{18}{figure.21}% 
-\contentsline {figure}{\numberline {22}{\ignorespaces Basic Motor Stick}}{18}{figure.22}% 
-\contentsline {figure}{\numberline {23}{\ignorespaces motor-stick.png}}{18}{figure.23}% 
-\contentsline {figure}{\numberline {24}{\ignorespaces Prop Blade Layout}}{19}{figure.24}% 
-\contentsline {figure}{\numberline {25}{\ignorespaces Prop Blade}}{20}{figure.25}% 
-\contentsline {figure}{\numberline {26}{\ignorespaces Wing Mount Tube}}{20}{figure.26}% 
-\contentsline {figure}{\numberline {27}{\ignorespaces Flight Box}}{21}{figure.27}% 
+\contentsline {figure}{\numberline {1}{\ignorespaces OpenSCAd interface}}{2}{figure.1}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Demo 1}}{3}{figure.2}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Demo 2}}{4}{figure.3}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Demo 3}}{4}{figure.4}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Polygon Demo 1}}{5}{figure.5}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Polygon Demo 2}}{5}{figure.6}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Spar Trimming block}}{6}{figure.7}%
+\contentsline {figure}{\numberline {8}{\ignorespaces LPP Design Constraints}}{9}{figure.8}%
+\contentsline {figure}{\numberline {9}{\ignorespaces General Wing Geometry}}{10}{figure.9}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Basic Wing Dihedral Layout}}{10}{figure.10}%
+\contentsline {figure}{\numberline {11}{\ignorespaces General Wing Geometry}}{10}{figure.11}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Circular arc Geometry}}{11}{figure.12}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Wing Thickness Geometry}}{11}{figure.13}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Basic rib}}{12}{figure.14}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Wing Center Section}}{12}{figure.15}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Tip Design}}{13}{figure.16}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Wing Tip}}{13}{figure.17}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Tip Template}}{14}{figure.18}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Wing Assembly}}{14}{figure.19}%
+\contentsline {figure}{\numberline {20}{\ignorespaces Stabilizer}}{14}{figure.20}%
+\contentsline {figure}{\numberline {21}{\ignorespaces Vertical Fin}}{15}{figure.21}%
+\contentsline {figure}{\numberline {22}{\ignorespaces Basic Motor Stick}}{15}{figure.22}%
+\contentsline {figure}{\numberline {23}{\ignorespaces motor-stick.png}}{15}{figure.23}%
+\contentsline {figure}{\numberline {24}{\ignorespaces Prop Blade Layout}}{16}{figure.24}%
+\contentsline {figure}{\numberline {25}{\ignorespaces Prop Blade}}{17}{figure.25}%
+\contentsline {figure}{\numberline {26}{\ignorespaces Simple Prop Shaft}}{17}{figure.26}%
+\contentsline {figure}{\numberline {27}{\ignorespaces Wing Mount Tube}}{18}{figure.27}%
+\contentsline {figure}{\numberline {28}{\ignorespaces Flight Box}}{20}{figure.28}%
