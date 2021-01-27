@@ -20,11 +20,11 @@ docs:
 .PHONY: tex
 tex:
 	cd tex && \
-	pdflatex main && \
+	pdflatex main &&  \
 	python main.sympy && \
+	bibtex main.tex && \
 	pdflatex main && \
-	bibtex main && \
-	pdflatex main $$ \
+	pdflatex main
 
 .PHONY: pub
 pub:
