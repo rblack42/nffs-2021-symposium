@@ -1,8 +1,3 @@
-.PHONY: tex
-tex:
-	pdflatex main
-	python main.sympy
-	pdflatex main
-	bibtex main
-	pdflatex main
-	pdflatex main
+.PHONY: pub
+pub:
+	pandoc main.tex -o ../docs/main.docx

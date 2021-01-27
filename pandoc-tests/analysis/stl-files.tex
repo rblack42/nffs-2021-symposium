@@ -1,0 +1,112 @@
+\subsection{Generating STL Files}
+
+Many folks who use \osc\ generate {\it STL} files from their \osc\ designs. These
+files are used as part of the 3D printing process. Although I wish we could 3D
+print flyable model airplanes, that is not what we will do with the STL files
+in this project.
+
+STL stands for {\it Standard Tessellation Library} \citep{stlwiki}. Translated,
+that means an STL file is a list of triangular objects that describe the
+surface of a 3D object. These triangles cover the surface making a ``water
+tight'' approximation to the real surface. Triangles are guaranteed to be flat
+in the 3D space, and if they are tiny enough, they can be rendered to create a
+3D display of the object, or sent to a 3D printer after suitable processing of all
+the triangles so the printer knows where the surface is located.
+
+My purpose in introducing these triangles is simple. I want to know how much my
+model will weigh, and I want to know where the center of gravity will be when
+the design is constructed. Figuring out these two details is impossible using
+conventional building techniques: you build the model, weight it, and figure
+out the center of gravity manually. Computer geeks never do anything manually
+if they can get their computer to do the work.
+
+I found some nice \PY\ code that is all set up to figure out the volume of a 3D
+shape defined in an STL file, and return it's center of gravity location. It is
+simple enough to add in the predicted wood density for the design and come up
+with a weight estimate for each part. A little post-processing of all this data
+will give us some estimate of the total designs weight. Unfortunately, figuring
+out the weight of the glue is not so simple. For that we need to know where
+each glue joint will be and the surface area of the glue joint. Fortunately, by
+designing our model using separate parts, this turns out to be fairly easy to
+do!
+
+Knowing where each part will be placed in the final design, and the CG data for
+that part will let us predict the CG for the complete model as well!
+
+Let's demonstrate this idea using a simple rib section.
+
+\subsubsection{Estimating Weights}
+
+I have worked to set up each major part you would need to create out of balsa,
+or other materials as a module we can activate separately. In this example, I
+will show how to estimate the weight of a single wing rib.
+
+For this section, I will be using \osc\ as a {\it command-line} tool,
+something that may not be familiar to non-programmers. Details on this are on
+the project website, but basically, we will open up a window where we can type
+in commands to the operating system. This will involve running a {\bf cmd.exe}
+on a Windows system, and opening up a {\it terminal} on Mac and Linux systems.
+
+We will run \osc\ as a tool and will not open up the graphical user
+interface you normally see. In this mode, \osc\ will read a file, process it
+and generate an output file containing the results we want. In this example, we
+will be asking it to generate an STL file from a part definition {\it scad}
+file.
+
+My {\bf rib.scad} file is set up to display a single rib if you load it in
+OpenSCAD normally. The command I give to my Operating System to generate the
+{\it STL} file looks like this:
+
+\begin{lstlisting}
+openscad rib.scad -o rib.stl
+\end{lstlisting}
+
+That is not so bad. If you check the directory where we ran this command (the
+one containing {\bf rib.scad}, you will see a new file named {\bf rib.stl}. You
+can examine this file, but all it contains is a bunch of definitions of the
+triangles needed to enclose a single rib.
+
+Using the Python library to get the rib data is pretty easy.  created a simple
+\PY\ program to process this STL file. The program is named {\bf getvolume.py}.
+I will not show the code here, but it is available on the project website.
+
+This program is run from the command line as follows:
+
+\begin{lstlisting}
+python getvolume.py rib.stl 4.5
+\end{lstlisting}
+
+This line tells the operating to run \PY\ using my program code file. The next
+two parameters are the name of the part STL file followed by density of the part
+in pounds per cubit foot.
+
+This will process the rib.scad file in the current directory, and print out the
+volume and CG information. It also prints the bounds of the box occupied by the
+shape, and the expected weight for the part.
+
+Here is the output I saw from my test:
+
+\begin{lstlisting}
+Processing rib with density 4.5
+Shape bounds are:
+  X: 0.0 <-> 5.0
+  Y: -0.0156 <-> 0.0156
+  Z: 0 <-> 0.362
+Shape volume: 0.0099 cubic inches
+Shape CG    : [2.5000 0.0000 2.2725e-1]
+Estimated weight = 0.01157 grams
+\end{lstlisting}
+
+That is pretty cool, and the numbers look reasonable for this rib!
+
+\subsubsection{Glue Weight}
+
+We still need to figure out how much glue we will need. The scheme I came up
+with uses the \osc\ i{\it intersection} operation to give is an estimate of
+the glue surface.
+
+It works like this. We take the two parts we want to glue together and slide one of them a tiny bit into the other part. Using the {\it intersection} operation will leave us with a tiny surface part that we can use as a model for the glue we will use. Of course, if you are a sloppy builder like me, this amount of c=glue might be off, but it is still a good way to get a weight estimate for the glue we will use.
+
+I found some data on glue weights in a n article authored by Larry Coslick that I am using until I get some data of my own.
+
+

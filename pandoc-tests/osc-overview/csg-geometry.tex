@@ -1,0 +1,227 @@
+\subsection{Constructive Solid geometry}
+
+What does that even mean?  Basically it means we construct bigger shapes using
+small set of primitive shapes, and a set of movement and combining operations.
+
+The 3D shapes we will use include spheres, cylinders, and cubes. All of these
+shapes can be scaled and moved around using simple movement operations.  We
+will also use some simple 2D shapes, like circles and rectangles, We will also
+use a more complex 2D shape called a polygon.  2D shapes have no thickness, but
+are useful when creating more complicated 3D shapes.
+
+\subsubsection{3D Primitive Shapes}
+
+For our first look at how you do things in \osc, here is a piece of code
+that shows the three basic 3D shapes:
+
+\includecode{demo/demo1.scad}
+
+Figure \ref{fig:demo1.png} shows the result.
+
+\importimage{demo1.png}{Demo 1}
+
+Each primitive shape is created at the origin. Cubes are created in the region
+where all three coordinates are positive. Spheres are created with the center
+of the sphere at the origin. The cylinder is centered along the {\bf Z} axis.
+If you look closely, you will see a small representation of the coordinate
+directions at the lower left of this image.
+
+We used a {\it translate} operation to move shapes aside so they do not
+overlap. The numbers inside square brackets control the distance we want to
+{\it translate} the following shape in the {\bf [x,y,z]} directions. This
+bracketed group of numbers is is called a {\it vector} which we will use a lot
+in our work. The numbers \osc\ uses internally are in millimeters, but that is
+only important when we print things. I prefer to pretend those numbers are in our
+more familiar inches, and scale things when we generate printed output.
+
+Notice how I indent code to show how things happen. This is strictly my style.
+\osc\ does not care about how you style your code. In this example, we {\it
+translate} the following {\it sphere} shape, then translate the following {\it
+cylinder} shape as well. The semicolon ends this command.
+Failing to put semicolons where they are needed is a common mistake when
+writing \osc\ code.
+
+These shapes do not look quite right. The problem is that \osc\  generates
+approximations to the rounded shapes, using a set of small polygons to build up
+the model. If we make these polygons smaller, things look better. All we need
+to do to fix this is change the code so it looks like this:
+
+\includecode{demo/demo2.scad}
+
+Figure \ref{fig:demo2.png} shows a much better result. The special variable
+{\bf \$fn} controls the resolution of rounded objects. Bigger numbers make
+things look smoother but it will take a bit longer to generate images on the screen.
+
+\importimage{demo2.png}{Demo 2}
+
+Some shapes are smart and can form different versions of themselves:
+
+\includecode{demo/demo3.scad}
+
+Figure \ref{fig:demo3.png} shows a warped cube and cylinder. Spheres are not so
+smart, they stay spheres unless we warp them with external commands.
+
+\importimage{demo3.png}{Demo 3}
+
+
+\subsubsection{2D primitive Shapes}
+
+We will use a few 2D shapes in this design, including the circle and square,
+which act much like their 3D counterparts. A more interesting 2D shape we will
+use is the {\it polygon}.
+
+\includecode{demo/polygon-demo1.scad}
+
+Here, we create two {\it variables} and set them equal to a list of vectors. 2D
+vectors have only 2 numbers, for the {\bf X} and {\bf Y} coordinate values. The
+first list defines a set of six points: three for the outer triangle, and three
+more for the inner triangle. The second list identifies {\it paths} meaning a
+continuous line that makes up a closed circuit, one for the outer triangle, and
+one for the inner triangle. The numbers refer to the position of vectors in the
+first list (programmers count starting at zero!) That final {\bf complexity=10}
+parameter is not important here. It helps the operation work properly.
+
+I know this is a bit confusing, but we will not need much of this kind of code
+in our design work. Remember to try things and see what happens.
+
+\importimage{polygon-demo1.png}{Polygon Demo 1}
+
+Figure \ref{fig:polygon-demo1.png} shows a  2D shape with no thickness, although
+\osc\ gives it enough of a thickness to show up on the screen.
+
+subsubsecton{Extrusions}
+
+We can use this 2D shape to create a 3D object by {\it extruding it} in the
+{\bf Z} direction. This operation ``pulls'' the 2D shape upward to produce a 3D
+shape!
+
+\includecode{demo/polygon-demo2.scad}
+
+Figure \ref{fig:polygon-demo2.png} definitely shows an interesting shape. We
+will use {\it extrusion} to make some parts that would be difficult to construct
+with just the basic primitive shapes.
+
+\importimage{polygon-demo2.png}{Polygon Demo 2}
+
+Obviously, we can form some interesting things with \osc.
+
+\subsubsection{Movement Operations}
+
+We saw the {\it translate} operation earlier. We can also {\it rotate} a shape.
+In this command we provide a vector of angles (in degrees) that we want to use
+to rotate the shape. Each number in the vector will be used to rotate the shape
+around the coordinate axis associated with that number. For instance {\bf
+rotate([90,0,0])} will rotate the shape around the {\bf X} axis ninety degrees.
+This operation uses the {\it right-hand rule}. If you want to rotate around the
+{bf X} axis, take your right hand and point the thumb in the direction of
+increasing {\bf X} in your coordinate system. Your fingers ``curl'' around that
+axis in a positive direction.
+
+Combining translations and rotations is done by writing both commands like
+this:
+
+\begin{lstlisting}
+  translate)[10,15,0])
+    rotate[90,0,0])
+      cube(1,1,5);
+\end{lstlisting}
+
+It helps to read this bottom up. We are creating a {\it cube} at the origin. We
+rotate it so it is aligned the way we want, then we translate that result to
+the position we have chosen. The semicolon at the end of this list ends the
+command. Notice that I indent so show what I want my code to do.
+
+Be warned that you can swap the {\it translate} and {\it rotate} commands, but
+you might not get the result you expect. Rotations are applied to the shape as
+it is positioned when the command is processed. If you rotate after
+translating, The shape will swing a long way! In general, we will always do the
+rotations first when moving shapes around.
+
+\subsubsection{Combining Operations}
+
+In 3D modeling, we often want to combine shapes to create more complex shapes.
+That is important if we want to 3D print something. However, for most of our
+work in this design, we will not need to actually fuse two parts together, just
+position them correctly. However, there is one important combining operation we
+will use a lot. The {\bf difference} operation actually takes two shapes that
+overlap, and slices off the part where they intersect. This operation is a
+combination of our knife and sandpaper block!
+
+Let's try to taper a block of balsa that might represent a short spar!
+
+\includecode{scad/spar-trim.scad}
+
+Figure \ref{fig:trim-block.png}shows what this looks like.
+
+\importimage{trim-block.png}{Spar Trimming block}
+
+
+This example shows some nice features of \osc. The first line calculates the
+angle we need to use to taper  the spar to half its height. The {\bf
+difference} operation takes the first shape inside those curly braces, in this
+case our basic spar, and uses the next shape, the trimming block properly
+aligned, to slice away where they intersect. That funny sharp character in front
+of the second cube makes \osc\ show you the trimming block for debugging.
+Normally, we leave this character off and the trimming block is invisible, and
+the intersection just evaporates.
+Like sanding blocks on steroids!
+
+There are other combining operations we could use, but they will not show up
+much in our design work. The {\bf union} operation combines two shapes into
+one, and the {\bf intersection} operation takes two overlapping shapes an
+produces only that area where they intersect. We will use that last one in our
+analysis work in the last section.
+
+\subsubsection{Modules}
+
+\osc\ lets you package a number of operations in a {\it module} that you can
+activate later, one or more times. In fact those primitive shapes were all
+predefined {\it modules}. The module can have parameters, which makes this a
+powerful way to manage shapes that are similar, but differ depending on the
+parameters you specify.  We will create a basic rib module for this model, and
+use parameters to control the exact rib we want.
+
+All modules need to have a unique name in your code.  The name you choose should
+help you remember what the module is all about. When you add parameters to a
+module, you define names for each parameter as well. These are surrounded by
+parentheses, with commas separating them if you have more than one. You can
+optionally provide a default value for each parameter by adding an equal sign
+followed by the default value you want. When you activate the module, you will
+provide actual values you want the module to use. You can just provide a
+sequence of numbers in the right order with commas separating them, or you can
+add the parameter name from the definition, an equal sign, then the new value
+you want. In this case, the order is not important, and you can leave off any
+parameters where you are happy with the default value.  The rules for all of
+this are detailed in the \osc\ {\it User Manual} \cite{userman}, so I will not
+go further in this discussion here.
+
+\subsubsection{Variables}
+
+All programs set up {\it variables} which are just a way we can name a number of
+some other data item. These variables can then be used in your code instead of
+the numbers. This makes it easy to modify something you use a bunch of times in
+your code. I tell my programming students to work hard at keeping real
+numbers out of their code. I can them {\it magic numbers} because after a
+while, you will see a number and have no idea why it is there.
+
+We define a variable by picking a name for it, then adding an equal sign
+followed by the value you want to use. That value can just be a number, or you
+can calculate the value using some math and other variables. You will see enough
+of this ot get the idea, since my intent is not to teach programming here.
+
+Variables can be defined in a master file that we can then use in any code we
+wish. We will go over how we do that later. These variables are called {\it
+global variables}. We can also set up variables inside of a module. These are
+called {\it local variables} and only code inside the module can use those.
+
+We will see both kinds in this design work. Global variables will be used for
+things like {\bf max\_chord, and max\_wing\_span}. Local variables will be used
+when we need to store a number for use in the code we are writing. You saw an
+example in the code above where we calculated the {\bf trim\_angle}.
+
+Successfully building 3D models involves visualizing what you want, then
+arranging simple shapes as needed and performing these three basic combining
+operations to generate the gadget you want! It takes practice! The more you
+experiment the better you will get! I encourage you to fire up \osc\ and type
+in this code. You will be better able to see how things work by doing this!
+
