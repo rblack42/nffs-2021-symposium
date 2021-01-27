@@ -10,10 +10,10 @@ try:
  eq2 = r - r * sympy.sin(theta) - t
  sol = sympy.solve([eq1,eq2],[r,theta])
 except:
- sympytex.goboom(86)
+ sympytex.goboom(84)
 sympytex.blockend()
 try:
  sympytex.inline(0, sol)
 except:
- sympytex.goboom(89)
+ sympytex.goboom(87)
 sympytex.endofdoc()
